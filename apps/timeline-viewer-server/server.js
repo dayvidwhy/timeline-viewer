@@ -1,5 +1,5 @@
 import express from "express";
-import { getVideosForUser } from "./utils/api.js";
+import { getVideosForUser } from "@timeline-viewer/api-requests";
 
 const app = express();
 const port = 3000;
