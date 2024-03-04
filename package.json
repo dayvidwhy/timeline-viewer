@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run start -w @timeline-viewer/timeline-viewer-server",
+    "dev": "npm run dev -w @timeline-viewer/timeline-viewer-app",
     "test": "jest"
   },
   "author": "",
