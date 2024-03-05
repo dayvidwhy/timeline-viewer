@@ -65,6 +65,7 @@ const getVideosForUsername = async (userId) => {
 };
 
 const getVideoDetails = (videos) => {
+    console.log(videos);
     return videos.map((video) => {
         const startTime = new Date(video.created_at);
         const endTime = new Date(startTime.getTime() + parseTimeString(video.duration));
@@ -73,7 +74,8 @@ const getVideoDetails = (videos) => {
             start: startTime,
             end: endTime,
             url: video.url,
-            title: video.title
+            title: video.title,
+            id: video.id
         }
     })
 };

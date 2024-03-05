@@ -1,8 +1,11 @@
 import express from "express";
+import cors from "cors";
 import { getVideosForUser } from "@timeline-viewer/api-requests";
 
 const app = express();
 const port = 3000;
+
+app.use(cors());
 
 app.get("/videos/:user", async (req, res) => {
     if (!req.params.user) {
