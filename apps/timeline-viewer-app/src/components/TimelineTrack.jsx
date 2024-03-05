@@ -9,18 +9,22 @@ export const TimelineTrack = () => {
     const { data, fetchData } = useVideoRequest(username);
 
     return (
-        <>
-            <TimelineSelector
-                setUsername={setUsername}
-                fetchData={fetchData} />
+        <tr className="h-24">
+            <th className="border border-slate-300">
+                <TimelineSelector
+                    setUsername={setUsername}
+                    fetchData={fetchData} />
+            </th>
             {data.map((video) => {
                 return (
-                    <TimelineItem
-                        key={video.id}
-                        video={video}
-                    />
+                    <td className="border border-slate-300 bg-slate-100"
+                        key={video.id}>
+                        <TimelineItem
+                            video={video}
+                        />
+                    </td>
                 );
             })}
-        </>
+        </tr>
     )
 };
