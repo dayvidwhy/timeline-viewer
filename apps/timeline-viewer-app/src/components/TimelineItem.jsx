@@ -11,7 +11,7 @@ export const TimelineItem = ({ timeLineData }) => {
     return (
         <div className={classes}>
             <div 
-                onClick={() => {window.open(timeLineData.video.url,'_blank')}} 
+                onClick={() => {window.open(timeLineData.video.url,"_blank")}} 
                 className="bg-slate-700 h-full cursor-pointer" 
                 style={{width: contentWidth}}
             >

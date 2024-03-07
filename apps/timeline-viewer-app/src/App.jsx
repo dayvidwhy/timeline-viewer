@@ -1,5 +1,5 @@
-import './App.css'
-import { Timeline } from './components/Timeline';
+import "./App.css"
+import { Timeline } from "./components/Timeline";
 
 const App = () => {
     return (
