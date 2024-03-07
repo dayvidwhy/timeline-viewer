@@ -24,12 +24,12 @@ export const TimelineTrack = ({ timelineTimes }) => {
 
                 if (timelineDataItem) {
                     content = (<TimelineItem
-                        video={timelineDataItem}
+                        timeLineData={timelineDataItem}
                     />);
                 }
 
                 return (
-                    <td className="border border-slate-300 bg-slate-100"
+                    <td className="border border-slate-300 bg-slate-100 h-inherit p-0"
                         key={index}>
                         {content}
                     </td>

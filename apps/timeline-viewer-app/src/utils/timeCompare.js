@@ -85,7 +85,10 @@ export const getTimeRangesForTimeline = (timelineTimes, videos) => {
                 endTimeToCheck: vid.end
             });
             if (timeData) {
-                return vid;
+                return {
+                    timeData,
+                    video: vid
+                };
             }
         }
 
