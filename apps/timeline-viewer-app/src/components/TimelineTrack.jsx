@@ -11,7 +11,6 @@ export const TimelineTrack = ({ timelineTimes }) => {
     const { data, fetchData } = useVideoRequest(username);
 
     const videoTimelineData = getTimeRangesForTimeline(timelineTimes, data);
-
     return (
         <tr className="h-24">
             <th className="border border-slate-300">
