@@ -65,7 +65,6 @@ const getVideosForUsername = async (userId) => {
 };
 
 const getVideoDetails = (videos) => {
-    console.log(videos);
     return videos.map((video) => {
         const startTime = new Date(video.created_at);
         const endTime = new Date(startTime.getTime() + parseTimeString(video.duration));
@@ -102,6 +101,5 @@ export const getVideosForUser = async (username) => {
     } catch (e) {
         throw new Error("Fetching videos failed: " +  + e);
     }
-    console.log(getVideoDetails(videos));
     return getVideoDetails(videos);
 };

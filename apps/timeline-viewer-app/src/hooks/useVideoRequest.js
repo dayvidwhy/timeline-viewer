@@ -16,7 +16,11 @@ export const useVideoRequest = (username) => {
             "url": `http://localhost:3000/videos/${username}`
         });
         if (response.status === 200) {
-            setData(response.data);
+            setData(response.data.map((item) => {
+                item.start = new Date(item.start);
+                item.end = new Date(item.end);
+                return item;
+            }));
         } else {
             // something went wrong, blank the data
             // TODO: Add handling
