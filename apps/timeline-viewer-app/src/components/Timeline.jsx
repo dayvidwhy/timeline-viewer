@@ -5,7 +5,7 @@ import { format, subHours, set } from "date-fns";
 export const Timeline = () => {
     const [trackCount, setTrackCount] = useState(2);
 
-    const hoursBackToShow = 24;
+    const hoursBackToShow = 12;
 
     const [timelineTimes] = useState(
         Array.from({ length: hoursBackToShow }, (_, index) => (
@@ -22,11 +22,11 @@ export const Timeline = () => {
             <table className="border-collapse table-fixed w-full overflow-hidden">
                 <thead>
                     <tr>
-                        <th className="w-24 text-sm">
+                        <th className="w-24 text-sm text-left">
                             Streamer
                         </th>
                         {Array.from({ length: hoursBackToShow }, (_, index) => (
-                            <th key={index} className="h-inherit text-xs">
+                            <th key={index} className="h-inherit text-xs text-left">
                                 {format(subHours(new Date(), index), "haaa")}
                             </th>
                         ))}

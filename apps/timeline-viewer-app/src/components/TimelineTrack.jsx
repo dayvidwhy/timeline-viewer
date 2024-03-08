@@ -13,7 +13,7 @@ export const TimelineTrack = ({ timelineTimes }) => {
     const videoTimelineData = getTimeRangesForTimeline(timelineTimes, data);
     return (
         <tr className="h-16">
-            <th className="border border-slate-300 h-inherit">
+            <th className="border border-slate-300 h-inherit border-r-4">
                 <TimelineSelector
                     setUsername={setUsername}
                     fetchData={fetchData}
