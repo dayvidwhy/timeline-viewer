@@ -37,7 +37,7 @@ const videos = [
         id: "12345",
     },
 ];
-test("Should return the correct result", () => {
+test("Should return blocks with overlap and null for the rest", () => {
     const timelineTimes = [
         "2024-03-07T22:00:00.000Z",
         "2024-03-07T21:00:00.000Z",
@@ -139,5 +139,32 @@ test("Should return the correct result", () => {
 
     const result = getTimeRangesForTimeline(timelineTimes, videos);
 
+    expect(result).toEqual(expected);
+});
+
+test("Should return an array with null values when no videos are available", () => {
+    const timelineTimes = [
+        "2024-03-07T22:00:00.000Z",
+        "2024-03-07T21:00:00.000Z",
+    ];
+    const videos = [];
+    const expected = [null, null];
+    const result = getTimeRangesForTimeline(timelineTimes, videos);
+    expect(result).toEqual(expected);
+});
+
+test("Should return an empty array when no timeline times are provided", () => {
+    const timelineTimes = [];
+    const videos = [
+        {
+            start: "2024-03-07T17:01:46.000Z",
+            end: "2024-03-07T22:10:46.000Z",
+            url: "url",
+            title: "Title",
+            id: "1",
+        },
+    ];
+    const expected = [];
+    const result = getTimeRangesForTimeline(timelineTimes, videos);
     expect(result).toEqual(expected);
 });
