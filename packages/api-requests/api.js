@@ -22,9 +22,15 @@ const checkLogin = async () => {
                 "grant_type": "client_credentials"
             })
         });
+
         if (response.status === 200) {
-            token = response.data.access_token;
-            tokenExpiry = (new Date()).getTime() + response.data.expires_in;
+            // validate what we got back is as expected
+            if (response.data?.access_token && response.data?.expires_in) {
+                token = response.data.access_token;
+                tokenExpiry = (new Date()).getTime() + response.data.expires_in;
+            } else {
+                throw new Error("Response not as expected");
+            }
         } else {
             throw new Error(response.data);
         }
@@ -58,7 +64,7 @@ const getVideosForUsername = async (userId) => {
         }
     });
 
-    if (response.status === 200) {
+    if (response.status === 200 && response.data?.data) {
         return response.data.data;
     }
     throw new Error(respose.data);
@@ -84,8 +90,7 @@ export const getVideosForUser = async (username) => {
     try {
         await checkLogin();
     } catch (e) {
-        console.log("Logging in failed: " + e);
-        return;
+        throw new Error("Logging in failed: " + e);
     }
 
     let user;

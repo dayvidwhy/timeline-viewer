@@ -8,11 +8,11 @@ export const Footer = () => {
         ">
             <p>
                 Find{" "}
-                <a href="https://github.com/dayvidwhy/timeline-viewer">
+                <a className="underline hover:text-cyan-600" href="https://github.com/dayvidwhy/timeline-viewer">
                     source 
-                </a> and 
-                <a href="https://github.com/dayvidwhy">{" "}
-                    me
+                </a> and{" "} 
+                <a className="underline hover:text-cyan-600" href="https://github.com/dayvidwhy">
+                    myself
                 </a> on Github.
             </p>
         </div>
