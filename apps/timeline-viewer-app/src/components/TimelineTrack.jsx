@@ -8,15 +8,16 @@ import { useVideoRequest } from "../hooks/useVideoRequest.js";
 
 export const TimelineTrack = ({ timelineTimes }) => {
     const [username, setUsername] = useState("");
-    const { data, fetchData } = useVideoRequest(username);
+    const { data, fetchData, isPending } = useVideoRequest(username);
 
     const videoTimelineData = getTimeRangesForTimeline(timelineTimes, data);
     return (
-        <tr className="h-24">
-            <th className="border border-slate-300">
+        <tr className="h-16">
+            <th className="border border-slate-300 h-inherit">
                 <TimelineSelector
                     setUsername={setUsername}
-                    fetchData={fetchData} />
+                    fetchData={fetchData}
+                    isPending={isPending} />
             </th>
             {videoTimelineData.map((timelineDataItem, index) => {
                 let content = null;

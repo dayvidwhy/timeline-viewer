@@ -5,3 +5,7 @@
 .h-inherit {
     height: inherit;
 }
+
+#root, body, html {
+    height: 100%
+}

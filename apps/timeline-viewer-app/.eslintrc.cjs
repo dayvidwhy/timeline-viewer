@@ -22,6 +22,7 @@ module.exports = {
       { allowConstantExport: true },
     ],
     'indent': ['error', 4],
-    'quotes': ['error', 'double']
+    'quotes': ['error', 'double'],
+    'semi': ['error', 'always']
   },
 }

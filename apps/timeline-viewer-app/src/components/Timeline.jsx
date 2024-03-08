@@ -3,7 +3,7 @@ import { TimelineTrack } from "./TimelineTrack.jsx";
 import { format, subHours, set } from "date-fns";
 
 export const Timeline = () => {
-    const [trackCount, setTrackCount] = useState(1);
+    const [trackCount, setTrackCount] = useState(2);
 
     const hoursBackToShow = 24;
 
@@ -19,14 +19,14 @@ export const Timeline = () => {
 
     return (
         <>
-            <table className="border-collapse border border-slate-40 table-fixed w-full overflow-hidden">
+            <table className="border-collapse table-fixed w-full overflow-hidden">
                 <thead>
                     <tr>
-                        <th className="w-24">
-                            Selector
+                        <th className="w-24 text-sm">
+                            Streamer
                         </th>
                         {Array.from({ length: hoursBackToShow }, (_, index) => (
-                            <th key={index}>
+                            <th key={index} className="h-inherit text-xs">
                                 {format(subHours(new Date(), index), "h aaa")}
                             </th>
                         ))}
@@ -41,10 +41,19 @@ export const Timeline = () => {
                     ))}
                 </tbody>
             </table>
-            <button
-                onClick={() => {setTrackCount(trackCount + 1)}}>
-                Add Track
-            </button>
+            <div className="flex justify-center p-5">
+                <button
+                    className="
+                        p-4
+                        rounded
+                        bg-slate-200 
+                        hover:bg-slate-300 
+                        text-slate-900
+                    "
+                    onClick={() => {setTrackCount(trackCount + 1)}}>
+                    Add Track
+                </button>
+            </div>
         </>
     );
 };
