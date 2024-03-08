@@ -31,7 +31,8 @@ export const TimelineSelector = ({ setUsername, fetchData, isPending }) => {
                     text-slate-600
                     text-xs 
                     p-1"
-                onClick={fetchData}>
+                onClick={fetchData}
+                disabled={isPending}>
                 { isPending ? "Loading" : "Load" }
             </button>
         </div>
