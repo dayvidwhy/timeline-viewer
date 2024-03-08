@@ -27,7 +27,7 @@ export const Timeline = () => {
                         </th>
                         {Array.from({ length: hoursBackToShow }, (_, index) => (
                             <th key={index} className="h-inherit text-xs">
-                                {format(subHours(new Date(), index), "h aaa")}
+                                {format(subHours(new Date(), index), "haaa")}
                             </th>
                         ))}
                     </tr>
