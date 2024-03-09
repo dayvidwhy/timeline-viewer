@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { getTimeRangesForTimeline } from "../utils/timeCompare.js";
+import { checkTimeslotsPerVideo } from "../utils/timeCompare.js";
 
 import { TimelineItem } from "./TimelineItem.jsx";
 import { TimelineSelector } from "./TimelineSelector.jsx";
@@ -10,7 +10,8 @@ export const TimelineTrack = ({ timelineTimes }) => {
     const [username, setUsername] = useState("");
     const { data, fetchData, isPending } = useVideoRequest(username);
 
-    const videoTimelineData = getTimeRangesForTimeline(timelineTimes, data);
+    const timeslotData = checkTimeslotsPerVideo(timelineTimes, data);
+
     return (
         <tr className="h-16">
             <th className="border border-slate-300 h-inherit border-r-4">
@@ -19,12 +20,12 @@ export const TimelineTrack = ({ timelineTimes }) => {
                     fetchData={fetchData}
                     isPending={isPending} />
             </th>
-            {videoTimelineData.map((timelineDataItem, index) => {
+            {timelineTimes.map((timelineTime, index) => {
                 let content = null;
 
-                if (timelineDataItem) {
+                if (timeslotData.videoStorage[timelineTime].videos.length > 0) {
                     content = (<TimelineItem
-                        timeLineData={timelineDataItem}
+                        timeLineData={timeslotData.videoStorage[timelineTime]}
                     />);
                 }
 

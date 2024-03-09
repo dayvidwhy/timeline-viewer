@@ -1,21 +1,51 @@
 import PropTypes from "prop-types";
 
 export const TimelineItem = ({ timeLineData }) => {
-    let classes = "h-full flex ";
-    if (timeLineData.timeData.start === 0) {
-        classes += "flex-row-reverse"
-    }
+    const blockItems = [];
+    let currentEnd = 100;
+    console.log(timeLineData.videos);
 
-    const contentWidth = timeLineData.timeData.end - timeLineData.timeData.start + "%";
+    timeLineData.videos.forEach((video) => {
+        if (video.timeData.end !== currentEnd) {
+            // add an empty block
+            blockItems.push({
+                timeData: {
+                    end: currentEnd,
+                    start: video.timeData.end
+                }
+            });
+            currentEnd = video.timeData.start;
+        }
 
+        // add a video block
+        blockItems.push(video);
+    });
+    
     return (
-        <div className={classes}>
-            <div 
-                onClick={() => {window.open(timeLineData.video.url,"_blank")}} 
-                className="bg-slate-700 h-full cursor-pointer" 
-                style={{width: contentWidth}}
-            >
-            </div>
+        <div className="h-full flex">
+            {blockItems.map((block, index) => {
+                const contentWidth = block.timeData.end - block.timeData.start + "%";
+                if (block.video) {
+                    // we're rendering a video
+                    return (
+                        <div 
+                            key={index}
+                            onClick={() => {window.open(block.video.url,"_blank")}} 
+                            className="bg-slate-700 h-full cursor-pointer" 
+                            style={{width: contentWidth}}
+                        >
+                        </div>
+                    )
+                } else {
+                    return (
+                        <div
+                            key={index}
+                            className="h-full" 
+                            style={{width: contentWidth}}>
+                        </div>
+                    )
+                }
+            })}
         </div>
     );
 };

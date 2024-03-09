@@ -78,9 +78,7 @@ const getVideoDetails = (videos) => {
         return {
             start: startTime,
             end: endTime,
-            url: video.url,
-            title: video.title,
-            id: video.id
+            ...video
         }
     })
 };

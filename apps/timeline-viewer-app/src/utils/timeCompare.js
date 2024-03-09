@@ -72,26 +72,46 @@ const checkTimeRange = ({ startTime, endTime, startTimeToCheck, endTimeToCheck }
     }
 };
 
-// return array of time chunks and video associated with it
-export const getTimeRangesForTimeline = (timelineTimes, videos) => {
-    return timelineTimes.map((_, index) => {
-        // for each vid does it overlap with our current time block
-        for (let i = 0; i < videos.length; i++) {
-            let vid = videos[i];
+export const checkTimeslotsPerVideo = (timelineTimes, videos) => { 
+    const timeslotData = {
+        videoStorage: {},
+        timelineTrackEnd: timelineTimes[0],
+        timelineTrackStart: timelineTimes[timelineTimes.length - 1]
+    };
+
+    for (let i = 0; i < timelineTimes.length; i++) {
+        timeslotData.videoStorage[timelineTimes[i]] = {
+            videos: []
+        }
+    };
+    console.log(timeslotData);
+
+    videos.forEach((video) => {
+        // if the video starts after our track ends, or ends before it begins, skip it
+        if (
+            compareAsc(video.start, timeslotData.timelineTrackEnd) > 0 ||
+            compareAsc(timeslotData.timelineTrackStart, video.end) > 0
+        ) {
+            return;
+        }
+
+        // the video falls along the track somewhere
+        timelineTimes.forEach((_, index) => {
+            // for each time block does the video overlap with our current time block
             let timeData = checkTimeRange({
                 startTime: timelineTimes[index + 1],
                 endTime: timelineTimes[index],
-                startTimeToCheck: vid.start,
-                endTimeToCheck: vid.end
+                startTimeToCheck: video.start,
+                endTimeToCheck: video.end
             });
             if (timeData) {
-                return {
+                timeslotData.videoStorage[timelineTimes[index]].videos.push({
                     timeData,
-                    video: vid
-                };
+                    video
+                })
             }
-        }
-
-        return null;
+        });
     });
+
+    return timeslotData;
 };

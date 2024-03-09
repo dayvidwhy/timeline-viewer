@@ -5,7 +5,7 @@ import { format, subHours, set } from "date-fns";
 export const Timeline = () => {
     const [trackCount, setTrackCount] = useState(2);
 
-    const hoursBackToShow = 12;
+    const hoursBackToShow = 24;
 
     const [timelineTimes] = useState(
         Array.from({ length: hoursBackToShow }, (_, index) => (
