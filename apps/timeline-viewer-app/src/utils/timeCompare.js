@@ -1,4 +1,4 @@
-import { compareAsc, differenceInMilliseconds } from "date-fns";
+import { compareAsc, differenceInMilliseconds, set, subHours } from "date-fns";
 
 const calculatePercentageDistance = (endDate, middleDate, startDate) => {    
     // Calculate the difference in milliseconds between the start date and the middle date
@@ -97,9 +97,25 @@ export const checkTimeslotsPerVideo = (timelineTimes, videos) => {
 
         // the video falls along the track somewhere
         timelineTimes.forEach((_, index) => {
+            let startTime;
+
+            // if we're dealing with the last time block, our tinmelineTimes array
+            // won't have timelineTimes[index + 1] available to fetch the start time
+            // so we calculate it here
+            if (index === timelineTimes.length - 1) { 
+                // dealing with the last item, subtract an hour to get a start time
+                startTime = set(subHours(new Date(timelineTimes[index]), index), {
+                    minutes: 0,
+                    seconds: 0,
+                    milliseconds: 0
+                });
+            } else {
+                startTime = timelineTimes[index + 1];
+            }
+
             // for each time block does the video overlap with our current time block
             let timeData = checkTimeRange({
-                startTime: timelineTimes[index + 1],
+                startTime,
                 endTime: timelineTimes[index],
                 startTimeToCheck: video.start,
                 endTimeToCheck: video.end
