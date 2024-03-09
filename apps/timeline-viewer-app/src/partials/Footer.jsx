@@ -4,6 +4,8 @@ export const Footer = () => {
             flex
             justify-center
             bg-slate-300
+            border-slate-400
+            border-t-2
             p-2
         ">
             <p>

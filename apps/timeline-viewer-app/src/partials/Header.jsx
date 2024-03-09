@@ -6,14 +6,14 @@ export const Header = () => {
             bg-slate-300
             p-2
             mb-20
+            border-slate-400
+            border-b-2
         ">
             <p className="font-bold">
-                Check out my <a href="https://dayvidwhy.github.io">
-                    GitHub
-                </a>
+                Timeline Viewer App
             </p>
-            <p className="font-bold">
-                GitHub
+            <p>
+                dayvidwhy
             </p>
         </div>
     );
