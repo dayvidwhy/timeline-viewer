@@ -35,7 +35,7 @@ const checkLogin = async () => {
             throw new Error(response.data);
         }
     }
-    return;    
+    return;
 };
 
 const getUserInformationForUsername = async (username) => {
@@ -56,7 +56,7 @@ const getUserInformationForUsername = async (username) => {
 
 const getVideosForUsername = async (userId) => {
     const response = await axios({
-        "url": `https://api.twitch.tv/helix/videos?user_id=${userId}`,
+        "url": `https://api.twitch.tv/helix/videos?user_id=${userId}&type=archive`,
         "method": "get",
         "headers": {
             "Authorization": `Bearer ${token}`,
