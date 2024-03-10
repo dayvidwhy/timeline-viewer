@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 
+import { Button } from "./Button.jsx";
+
 export const TimelineSelector = ({ setUsername, fetchData, isPending }) => {
     return (
         <div className="block text-gray-900 border-solid border-slate-700 h-full">
@@ -22,19 +24,11 @@ export const TimelineSelector = ({ setUsername, fetchData, isPending }) => {
                     onChange={(event) => setUsername(event.target.value)} 
                 />
             </label>
-            <button
-                className="
-                    h-1/2
-                    w-full
-                    bg-slate-100 
-                    hover:bg-slate-300 
-                    text-slate-600
-                    text-xs 
-                    p-1"
+            <Button
+                text={ isPending ? "Loading" : "Load" }
+                className="w-full p-1 h-1/2"
                 onClick={fetchData}
-                disabled={isPending}>
-                { isPending ? "Loading" : "Load" }
-            </button>
+                disabled={isPending} />
         </div>
     );
 };
