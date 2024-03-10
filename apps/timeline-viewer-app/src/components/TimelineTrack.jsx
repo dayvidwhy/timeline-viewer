@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { checkTimeslotsPerVideo } from "../utils/timeCompare.js";
 
-import { TimelineItem } from "./TimelineItem.jsx";
+import { TimelineBlock } from "./TimelineBlock.jsx";
 import { TimelineSelector } from "./TimelineSelector.jsx";
 import { useVideoRequest } from "../hooks/useVideoRequest.js";
 
@@ -23,8 +23,8 @@ export const TimelineTrack = ({ timelineTimes }) => {
             {timelineTimes.map((timelineTime, index) => {
                 let content = null;
 
-                if (timeslotData.videoStorage[timelineTime].videos.length > 0) {
-                    content = (<TimelineItem
+                if (timeslotData.videoStorage[timelineTime].length > 0) {
+                    content = (<TimelineBlock
                         timeLineData={timeslotData.videoStorage[timelineTime]}
                     />);
                 }

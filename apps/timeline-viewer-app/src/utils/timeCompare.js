@@ -80,10 +80,8 @@ export const checkTimeslotsPerVideo = (timelineTimes, videos) => {
     };
 
     for (let i = 0; i < timelineTimes.length; i++) {
-        timeslotData.videoStorage[timelineTimes[i]] = {
-            videos: []
-        }
-    };
+        timeslotData.videoStorage[timelineTimes[i]] = [];
+    }
 
     videos.forEach((video) => {
         // if the video starts after our track ends, or ends before it begins, skip it
@@ -120,7 +118,7 @@ export const checkTimeslotsPerVideo = (timelineTimes, videos) => {
                 endTimeToCheck: video.end
             });
             if (timeData) {
-                timeslotData.videoStorage[timelineTimes[index]].videos.push({
+                timeslotData.videoStorage[timelineTimes[index]].push({
                     timeData,
                     video
                 })
