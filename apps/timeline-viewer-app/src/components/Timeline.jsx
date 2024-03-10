@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { TimelineTrack } from "./TimelineTrack.jsx";
 import { format, subHours, subDays, set } from "date-fns";
 
@@ -9,73 +9,69 @@ export const Timeline = () => {
 
     const [timePeriod, setTimePeriod] = useState("day");
 
-    const [timelineTimes, setTimelineTimes] = useState(
-        Array.from({ length: 25 }, (_, index) => (
-            set(subHours(new Date(), index - 1), {
-                minutes: 0,
-                seconds: 0,
-                milliseconds: 0
-            })
-        ))
-    );
+    const timelineTimes = useMemo(() => {
+        if (timePeriod === "day") {
+            return Array.from({ length: 25 }, (_, index) => (
+                set(subHours(new Date(), index - 1), {
+                    minutes: 0,
+                    seconds: 0,
+                    milliseconds: 0
+                })
+            ));
+        } else if (timePeriod === "week") {
+            return Array.from({ length: 8 }, (_, index) => (
+                set(subDays(new Date(), index - 1), {
+                    hours: 0,
+                    minutes: 0,
+                    seconds: 0,
+                    milliseconds: 0
+                })
+            ));
+        } else if (timePeriod === "month") {
+            return Array.from({ length: 29 }, (_, index) => (
+                set(subDays(new Date(), index - 1), {
+                    hours: 0,
+                    minutes: 0,
+                    seconds: 0,
+                    milliseconds: 0
+                })
+            ));
+        }
+    }, [timePeriod]);
+
+    const formattedTimes = useMemo(() => {
+        return timelineTimes.map((time) => {
+            if (timePeriod === "day") {
+                return format(time, "haaa");
+            } else if (timePeriod === "week" || timePeriod === "month") {
+                return format(time, "EEEEEE");
+            }
+        });
+    }, [timelineTimes, timePeriod]);
 
     return (
         <>
             <Button
                 text="Daily"
                 className="rounded w-20 h-1/2 mr-1"
-                onClick={() => {
-                    setTimePeriod("day");
-                    setTimelineTimes(Array.from({ length: 25 }, (_, index) => (
-                        set(subHours(new Date(), index - 1), {
-                            minutes: 0,
-                            seconds: 0,
-                            milliseconds: 0
-                        })
-                    )))
-                }} />
+                onClick={() => setTimePeriod("day")} />
             <Button
                 text="Weekly"
                 className="rounded w-20 h-1/2 mr-1"
-                onClick={() => {
-                    setTimePeriod("week");
-                    setTimelineTimes(Array.from({ length: 8 }, (_, index) => (
-                        set(subDays(new Date(), index - 1), {
-                            hours: 0,
-                            minutes: 0,
-                            seconds: 0,
-                            milliseconds: 0
-                        })
-                    )))
-                }} />
+                onClick={() => setTimePeriod("week")} />
             <Button
                 text="Monthly"
                 className="rounded w-20 h-1/2 mr-1"
-                onClick={() => {
-                    setTimePeriod("month");
-                    setTimelineTimes(Array.from({ length: 29 }, (_, index) => (
-                        set(subDays(new Date(), index - 1), {
-                            hours: 0,
-                            minutes: 0,
-                            seconds: 0,
-                            milliseconds: 0
-                        })
-                    )))
-                }} />
+                onClick={() => setTimePeriod("month")} />
             <table className="border-collapse table-fixed w-full overflow-hidden">
                 <thead>
                     <tr>
                         <th className="w-24 text-sm text-left">
                             Streamer
                         </th>
-                        {Array.from({ length: timelineTimes.length - 1 }, (_, index) => (
-                            <th key={index} className={`h-inherit text-xs text-left`}>
-                                {
-                                    timePeriod === "day" ?
-                                        format(timelineTimes[index], "haaa") :
-                                        (timePeriod === "week" || timePeriod === "month") ?
-                                            format(timelineTimes[index], "EEEEEE") : null
-                                }
+                        {formattedTimes.map((formattedTime, index) => (
+                            <th key={index} className={"h-inherit text-xs text-left"}>
+                                {formattedTime}
                             </th>
                         ))}
                     </tr>
@@ -98,4 +94,3 @@ export const Timeline = () => {
         </>
     );
 };
-
