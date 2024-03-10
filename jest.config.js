@@ -1,7 +1,7 @@
 export default {
-    testEnvironment: 'node',
+    testEnvironment: "node",
     transform: {
-        '^.+\\.(js|jsx)$': 'babel-jest',
-      }
+        "^.+\\.(js|jsx)$": "babel-jest",
+    }
     // Other Jest configurations...
-  };
+};

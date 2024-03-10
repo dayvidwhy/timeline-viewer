@@ -20,5 +20,5 @@ app.get("/videos/:user", async (req, res) => {
 });
   
 app.listen(port, () => {
-    console.log(`API listening on port ${port}`)
+    console.log(`API listening on port ${port}`);
 });

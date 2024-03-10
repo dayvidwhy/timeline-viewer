@@ -2,7 +2,7 @@ export const parseTimeString = (timeString) => {
     const regex = /(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/;
     const match = timeString.match(regex);
     if (!match || match[0] !== timeString) {
-        throw new Error('Invalid time string format');
+        throw new Error("Invalid time string format");
     }
 
     const hours = match[1] ? parseInt(match[1], 10) : 0;

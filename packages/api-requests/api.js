@@ -51,7 +51,7 @@ const getUserInformationForUsername = async (username) => {
     if (response.status === 200) {
         return response.data;
     }
-    throw new Error(respose.data);
+    throw new Error(response.data);
 };
 
 const getVideosForUsername = async (userId) => {
@@ -67,7 +67,7 @@ const getVideosForUsername = async (userId) => {
     if (response.status === 200 && response.data?.data) {
         return response.data.data;
     }
-    throw new Error(respose.data);
+    throw new Error(response.data);
 };
 
 const getVideoDetails = (videos) => {
@@ -79,8 +79,8 @@ const getVideoDetails = (videos) => {
             start: startTime,
             end: endTime,
             ...video
-        }
-    })
+        };
+    });
 };
 
 // fetch videos for a given username
