@@ -13,13 +13,13 @@ export const TimelineBlock = ({ timeLineData }) => {
                     start: video.timeData.end
                 }
             });
-            currentEnd = video.timeData.start;
         }
-
+        
         // add a video block
         blockItems.push(video);
+        currentEnd = video.timeData.start;
     });
-    
+
     return (
         <div className="h-full flex">
             {blockItems.map((block, index) => {

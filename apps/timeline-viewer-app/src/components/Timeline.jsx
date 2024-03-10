@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TimelineTrack } from "./TimelineTrack.jsx";
-import { format, subHours, set } from "date-fns";
+import { format, subHours, subDays, set } from "date-fns";
 
 export const Timeline = () => {
     const [trackCount, setTrackCount] = useState(2);
 
-    const hoursBackToShow = 24;
+    const [timePeriod, setTimePeriod] = useState("day");
 
-    const [timelineTimes] = useState(
-        Array.from({ length: hoursBackToShow }, (_, index) => (
+    const [timelineTimes, setTimelineTimes] = useState(
+        Array.from({ length: 25 }, (_, index) => (
             set(subHours(new Date(), index), {
                 minutes: 0,
                 seconds: 0,
@@ -19,15 +19,89 @@ export const Timeline = () => {
 
     return (
         <>
+            <button
+                className="
+                    h-1/2
+                    w-20
+                    bg-slate-100 
+                    hover:bg-slate-300 
+                    text-slate-600
+                    text-xs 
+                    p-1
+                    rounded
+                    mr-1"
+                onClick={() => {
+                    setTimePeriod("day");
+                    setTimelineTimes(Array.from({ length: 25 }, (_, index) => (
+                        set(subHours(new Date(), index), {
+                            minutes: 0,
+                            seconds: 0,
+                            milliseconds: 0
+                        })
+                    )))
+                }}>
+                Daily
+            </button>
+            <button
+                className="
+                    h-1/2
+                    w-20
+                    bg-slate-100 
+                    hover:bg-slate-300 
+                    text-slate-600
+                    text-xs 
+                    rounded
+                    p-1
+                    mr-1"
+                    onClick={() => {
+                        setTimePeriod("week");
+                        setTimelineTimes(Array.from({ length: 8 }, (_, index) => (
+                            set(subDays(new Date(), index), {
+                                minutes: 0,
+                                seconds: 0,
+                                milliseconds: 0
+                            })
+                        )))
+                    }}>
+                Weekly
+            </button>
+            <button
+                className="
+                    h-1/2
+                    w-20
+                    bg-slate-100 
+                    hover:bg-slate-300 
+                    text-slate-600
+                    text-xs 
+                    rounded
+                    p-1
+                    mr-1"
+                    onClick={() => {
+                        setTimePeriod("month");
+                        setTimelineTimes(Array.from({ length: 29 }, (_, index) => (
+                            set(subDays(new Date(), index), {
+                                minutes: 0,
+                                seconds: 0,
+                                milliseconds: 0
+                            })
+                        )))
+                    }}>
+                Monthly
+            </button>
             <table className="border-collapse table-fixed w-full overflow-hidden">
                 <thead>
                     <tr>
                         <th className="w-24 text-sm text-left">
                             Streamer
                         </th>
-                        {Array.from({ length: hoursBackToShow }, (_, index) => (
-                            <th key={index} className="h-inherit text-xs text-left">
-                                {format(subHours(new Date(), index), "haaa")}
+                        {Array.from({ length: timelineTimes.length - 1 }, (_, index) => (
+                            <th key={index} className={`h-inherit text-xs ${timePeriod === "day" ? "text-left" : "text-center"}`}>
+                                {
+                                    timePeriod === "day" ?
+                                        format(subHours(new Date(), index), "haaa") :
+                                        (timePeriod === "week" || timePeriod === "month") ?
+                                            format(subDays(new Date(), index), "EEEEEE") : null
+                                }
                             </th>
                         ))}
                     </tr>

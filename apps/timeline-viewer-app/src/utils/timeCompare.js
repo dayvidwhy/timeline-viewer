@@ -94,21 +94,10 @@ export const checkTimeslotsPerVideo = (timelineTimes, videos) => {
 
         // the video falls along the track somewhere
         timelineTimes.forEach((_, index) => {
-            let startTime;
-
-            // if we're dealing with the last time block, our tinmelineTimes array
-            // won't have timelineTimes[index + 1] available to fetch the start time
-            // so we calculate it here
             if (index === timelineTimes.length - 1) { 
-                // dealing with the last item, subtract an hour to get a start time
-                startTime = set(subHours(timelineTimes[index], 1), {
-                    minutes: 0,
-                    seconds: 0,
-                    milliseconds: 0
-                });
-            } else {
-                startTime = timelineTimes[index + 1];
+                return;
             }
+            let startTime = timelineTimes[index + 1];
 
             // for each time block does the video overlap with our current time block
             let timeData = checkTimeRange({

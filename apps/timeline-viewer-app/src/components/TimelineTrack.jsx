@@ -21,6 +21,9 @@ export const TimelineTrack = ({ timelineTimes }) => {
                     isPending={isPending} />
             </th>
             {timelineTimes.map((timelineTime, index) => {
+                if (index === timelineTimes.length - 1) {
+                    return null;
+                }
                 let content = null;
 
                 if (timeslotData.videoStorage[timelineTime].length > 0) {
