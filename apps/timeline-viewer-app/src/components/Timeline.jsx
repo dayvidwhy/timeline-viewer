@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { TimelineTrack } from "./TimelineTrack.jsx";
 import { format, subHours, subDays, set } from "date-fns";
 
@@ -9,7 +9,7 @@ export const Timeline = () => {
 
     const [timelineTimes, setTimelineTimes] = useState(
         Array.from({ length: 25 }, (_, index) => (
-            set(subHours(new Date(), index), {
+            set(subHours(new Date(), index - 1), {
                 minutes: 0,
                 seconds: 0,
                 milliseconds: 0
@@ -33,7 +33,7 @@ export const Timeline = () => {
                 onClick={() => {
                     setTimePeriod("day");
                     setTimelineTimes(Array.from({ length: 25 }, (_, index) => (
-                        set(subHours(new Date(), index), {
+                        set(subHours(new Date(), index - 1), {
                             minutes: 0,
                             seconds: 0,
                             milliseconds: 0
@@ -56,7 +56,8 @@ export const Timeline = () => {
                     onClick={() => {
                         setTimePeriod("week");
                         setTimelineTimes(Array.from({ length: 8 }, (_, index) => (
-                            set(subDays(new Date(), index), {
+                            set(subDays(new Date(), index - 1), {
+                                hours: 0,
                                 minutes: 0,
                                 seconds: 0,
                                 milliseconds: 0
@@ -79,7 +80,8 @@ export const Timeline = () => {
                     onClick={() => {
                         setTimePeriod("month");
                         setTimelineTimes(Array.from({ length: 29 }, (_, index) => (
-                            set(subDays(new Date(), index), {
+                            set(subDays(new Date(), index - 1), {
+                                hours: 0,
                                 minutes: 0,
                                 seconds: 0,
                                 milliseconds: 0
@@ -95,12 +97,12 @@ export const Timeline = () => {
                             Streamer
                         </th>
                         {Array.from({ length: timelineTimes.length - 1 }, (_, index) => (
-                            <th key={index} className={`h-inherit text-xs ${timePeriod === "day" ? "text-left" : "text-center"}`}>
+                            <th key={index} className={`h-inherit text-xs text-left`}>
                                 {
                                     timePeriod === "day" ?
-                                        format(subHours(new Date(), index), "haaa") :
+                                        format(timelineTimes[index], "haaa") :
                                         (timePeriod === "week" || timePeriod === "month") ?
-                                            format(subDays(new Date(), index), "EEEEEE") : null
+                                            format(timelineTimes[index], "EEEEEE") : null
                                 }
                             </th>
                         ))}
