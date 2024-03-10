@@ -1,4 +1,4 @@
-import "./App.css"
+import "./App.css";
 import { Main } from "./partials/Main";
 import { Footer } from "./partials/Footer";
 import { Header } from "./partials/Header";
@@ -14,7 +14,7 @@ const App = () => {
             </div>
             <Footer />
         </div>
-    )
+    );
 };
     
 export default App;

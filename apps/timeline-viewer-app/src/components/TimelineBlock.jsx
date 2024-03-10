@@ -25,7 +25,7 @@ export const TimelineBlock = ({ timeLineData }) => {
             {blockItems.map((item, index) => (
                 <div 
                     key={index}
-                    onClick={() => {item.video && window.open(item.video.url,"_blank")}} 
+                    onClick={() => {item.video && window.open(item.video.url,"_blank");}} 
                     className={`h-full ${item.video ? "cursor-pointer bg-slate-700" : null}`}
                     style={{width: item.timeData.end - item.timeData.start + "%"}}
                 />

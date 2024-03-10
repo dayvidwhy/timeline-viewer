@@ -35,9 +35,9 @@ export const TimelineTrack = ({ timelineTimes }) => {
                 );
             })}
         </tr>
-    )
+    );
 };
 
 TimelineTrack.propTypes = {
     timelineTimes: PropTypes.array
-}
+};

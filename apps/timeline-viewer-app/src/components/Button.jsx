@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 export const Button = ({ text, onClick, className }) => (
     <button
@@ -14,3 +14,9 @@ export const Button = ({ text, onClick, className }) => (
         {text}
     </button>
 );
+
+Button.propTypes = {
+    text: PropTypes.string,
+    onClick: PropTypes.func,
+    className: PropTypes.string
+};

@@ -1,4 +1,4 @@
-import { compareAsc, differenceInMilliseconds, set, subHours } from "date-fns";
+import { compareAsc, differenceInMilliseconds } from "date-fns";
 
 const calculatePercentageDistance = (endDate, middleDate, startDate) => {    
     // Calculate the difference in milliseconds between the start date and the middle date
@@ -57,7 +57,7 @@ const checkIfVideoInTimeblock = ({ startTime, endTime, startTimeToCheck, endTime
         return {
             start: calculatePercentageDistance(endTime, startTimeToCheck, startTime),
             end: 100
-        }
+        };
     }
 
     // otherwise the start and end time are within the time block we're considering
@@ -68,7 +68,7 @@ const checkIfVideoInTimeblock = ({ startTime, endTime, startTimeToCheck, endTime
         return {
             start: calculatePercentageDistance(endTime, startTimeToCheck, startTime),
             end: calculatePercentageDistance(endTime, endTimeToCheck, startTime)
-        }
+        };
     }
 };
 
@@ -110,7 +110,7 @@ export const findVideosPerTimelineBlock = (timelineTimes, videos) => {
                 timeslotData.videoStorage[timelineTimes[index]].push({
                     timeData,
                     video
-                })
+                });
             }
         });
     });
