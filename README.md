@@ -9,6 +9,15 @@ npm install
 npm start
 ```
 
+## Setup
+This project requires a Twitch application key from your [console](https://dev.twitch.tv/console). 
+
+Provide these in a `.env` file with `./apps/timeline-viewer-server/.env` as follows:
+```bash
+TWITCH_CLIENT_SECRET=....
+TWITCH_CLIENT_ID=...
+```
+
 ## Notes
 Project leverages [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) for monorepo management.
 
