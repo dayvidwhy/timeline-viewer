@@ -69,11 +69,16 @@ export const Timeline = () => {
                         <th className="w-24 text-sm text-left">
                             Streamer
                         </th>
-                        {formattedTimes.map((formattedTime, index) => (
-                            <th key={index} className={"h-inherit text-xs text-left"}>
-                                {formattedTime}
-                            </th>
-                        ))}
+                        {formattedTimes.map((formattedTime, index) => {
+                            if (index === formattedTimes.length - 1) {
+                                return null;
+                            }
+                            return (
+                                <th key={index} className={"h-inherit text-xs text-left"}>
+                                    {formattedTime}
+                                </th>
+                            );
+                        })}
                     </tr>
                 </thead>
                 <tbody>
