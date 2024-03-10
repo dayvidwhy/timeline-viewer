@@ -29,7 +29,7 @@ export const TimelineTrack = ({ timelineTimes }) => {
                     <td className="border border-slate-300 bg-slate-100 h-inherit p-0"
                         key={index}>
                         <TimelineBlock
-                            timeLineData={timeslotData.videoStorage[timelineTime]}
+                            videosForBlock={timeslotData.videoStorage[timelineTime]}
                         />
                     </td>
                 );

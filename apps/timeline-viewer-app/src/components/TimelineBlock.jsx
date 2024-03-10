@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 
-export const TimelineBlock = ({ timeLineData }) => {
+export const TimelineBlock = ({ videosForBlock }) => {
     const blockItems = [];
     let currentEnd = 100;
 
-    timeLineData.forEach((video) => {
+    videosForBlock.forEach((video) => {
         if (video.timeData.end !== currentEnd) {
             // add an empty block
             blockItems.push({
@@ -35,5 +35,5 @@ export const TimelineBlock = ({ timeLineData }) => {
 };
 
 TimelineBlock.propTypes = {
-    timeLineData: PropTypes.array
+    videosForBlock: PropTypes.array
 };
