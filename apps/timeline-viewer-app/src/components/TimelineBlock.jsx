@@ -22,29 +22,14 @@ export const TimelineBlock = ({ timeLineData }) => {
 
     return (
         <div className="h-full flex">
-            {blockItems.map((block, index) => {
-                const contentWidth = block.timeData.end - block.timeData.start + "%";
-                if (block.video) {
-                    // we're rendering a video
-                    return (
-                        <div 
-                            key={index}
-                            onClick={() => {window.open(block.video.url,"_blank")}} 
-                            className="bg-slate-700 h-full cursor-pointer" 
-                            style={{width: contentWidth}}
-                        >
-                        </div>
-                    )
-                } else {
-                    return (
-                        <div
-                            key={index}
-                            className="h-full" 
-                            style={{width: contentWidth}}>
-                        </div>
-                    )
-                }
-            })}
+            {blockItems.map((item, index) => (
+                <div 
+                    key={index}
+                    onClick={() => {item.video && window.open(item.video.url,"_blank")}} 
+                    className={`h-full ${item.video ? "cursor-pointer bg-slate-700" : null}`}
+                    style={{width: item.timeData.end - item.timeData.start + "%"}}
+                />
+            ))}
         </div>
     );
 };

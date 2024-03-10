@@ -15,7 +15,7 @@ const calculatePercentageDistance = (endDate, middleDate, startDate) => {
 
 // returns either, start to end completey fall within the times to check
 // or 
-const checkTimeRange = ({ startTime, endTime, startTimeToCheck, endTimeToCheck }) => {
+const checkIfVideoInTimeblock = ({ startTime, endTime, startTimeToCheck, endTimeToCheck }) => {
     // if the start time is after the end time of the block
     // or if the end time is before our blocks start time
     if (
@@ -72,7 +72,7 @@ const checkTimeRange = ({ startTime, endTime, startTimeToCheck, endTimeToCheck }
     }
 };
 
-export const checkTimeslotsPerVideo = (timelineTimes, videos) => { 
+export const findVideosPerTimelineBlock = (timelineTimes, videos) => { 
     const timeslotData = {
         videoStorage: {},
         timelineTrackEnd: timelineTimes[0],
@@ -100,7 +100,7 @@ export const checkTimeslotsPerVideo = (timelineTimes, videos) => {
             let startTime = timelineTimes[index + 1];
 
             // for each time block does the video overlap with our current time block
-            let timeData = checkTimeRange({
+            let timeData = checkIfVideoInTimeblock({
                 startTime,
                 endTime: timelineTimes[index],
                 startTimeToCheck: video.start,
