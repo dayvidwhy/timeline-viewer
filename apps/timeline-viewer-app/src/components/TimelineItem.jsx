@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 export const TimelineItem = ({ timeLineData }) => {
     const blockItems = [];
     let currentEnd = 100;
-    console.log(timeLineData.videos);
 
     timeLineData.videos.forEach((video) => {
         if (video.timeData.end !== currentEnd) {

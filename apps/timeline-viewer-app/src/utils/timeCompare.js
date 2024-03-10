@@ -84,7 +84,6 @@ export const checkTimeslotsPerVideo = (timelineTimes, videos) => {
             videos: []
         }
     };
-    console.log(timeslotData);
 
     videos.forEach((video) => {
         // if the video starts after our track ends, or ends before it begins, skip it
@@ -104,7 +103,7 @@ export const checkTimeslotsPerVideo = (timelineTimes, videos) => {
             // so we calculate it here
             if (index === timelineTimes.length - 1) { 
                 // dealing with the last item, subtract an hour to get a start time
-                startTime = set(subHours(new Date(timelineTimes[index]), index), {
+                startTime = set(subHours(timelineTimes[index], 1), {
                     minutes: 0,
                     seconds: 0,
                     milliseconds: 0
