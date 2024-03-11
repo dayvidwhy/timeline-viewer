@@ -40,11 +40,14 @@ const checkLogin = async () => {
 
 const getUserInformationForUsername = async (username) => {
     const response = await axios({
-        "url": `https://api.twitch.tv/helix/users?login=${username}`,
+        "url": "https://api.twitch.tv/helix/users",
         "method": "get",
         "headers": {
             "Authorization": `Bearer ${token}`,
-            "Client-Id": process.env.TWITCH_CLIENT_ID
+            "Client-Id": process.env.TWITCH_CLIENT_ID,
+        },
+        "params": {
+            "login": username
         }
     });
 
@@ -56,11 +59,15 @@ const getUserInformationForUsername = async (username) => {
 
 const getVideosForUsername = async (userId) => {
     const response = await axios({
-        "url": `https://api.twitch.tv/helix/videos?user_id=${userId}&type=archive`,
+        "url": "https://api.twitch.tv/helix/videos",
         "method": "get",
         "headers": {
             "Authorization": `Bearer ${token}`,
-            "Client-Id": process.env.TWITCH_CLIENT_ID
+            "Client-Id": process.env.TWITCH_CLIENT_ID,
+        },
+        "params": {
+            "user_id": userId,
+            "type": "archive"
         }
     });
 
