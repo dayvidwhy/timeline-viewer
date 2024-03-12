@@ -94,7 +94,11 @@ export const Timeline = () => {
                 <Button 
                     text="Add Track" 
                     onClick={() => setTrackCount(trackCount + 1)} 
-                    className="p-4 text-lg w-fit"/>
+                    className="p-2 text-lg w-24 mr-1"/>
+                <Button 
+                    text="Remove Track" 
+                    onClick={() => trackCount > 0 ? setTrackCount(trackCount - 1) : null} 
+                    className="p-2 text-lg w-24 ml-1"/>
             </div>
         </>
     );
