@@ -1,7 +1,7 @@
 {
   "name": "timeline-viewer",
   "version": "1.0.0",
-  "description": "",
+  "description": "🎬 Timeline of Twitch videos using React with Vite and npm workspaces.",
   "main": "index.js",
   "scripts": {
     "start": "npm run start -w @timeline-viewer/timeline-viewer-server & npm run dev -w @timeline-viewer/timeline-viewer-app",
@@ -31,5 +31,8 @@
   "workspaces": [
     "./packages/*",
     "./apps/*"
-  ]
+  ],
+  "engines": {
+    "node": "21"
+  }
 }

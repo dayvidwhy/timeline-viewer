@@ -14,7 +14,7 @@ export const useVideoRequest = (username) => {
         try {
             const response = await axios({
                 "method": "get",
-                "url": `http://localhost:3000/videos/${username}`
+                "url": `/api/videos/${username}`
             });
             if (response.status === 200) {
                 setData(response.data.map((item) => {

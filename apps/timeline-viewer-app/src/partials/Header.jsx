@@ -10,7 +10,7 @@ export const Header = () => {
             border-b-2
         ">
             <p className="font-bold">
-                Timeline Viewer App
+                Timeline Viewer
             </p>
             <p>
                 dayvidwhy
