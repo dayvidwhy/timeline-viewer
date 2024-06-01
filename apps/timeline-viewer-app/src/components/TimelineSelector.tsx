@@ -1,8 +1,18 @@
-import PropTypes from "prop-types";
+import React from "react";
 
 import { Button } from "./Button.jsx";
 
-export const TimelineSelector = ({ setUsername, fetchData, isPending }) => {
+type TimelineSelectorProps = {
+    setUsername: (username: string) => void;
+    fetchData: () => void;
+    isPending: boolean;
+};
+
+export const TimelineSelector = ({
+    setUsername,
+    fetchData,
+    isPending
+}: TimelineSelectorProps) => {
     return (
         <div className="block text-gray-900 border-solid border-slate-700 h-full">
             <label className="h-1/2 block">
@@ -31,10 +41,4 @@ export const TimelineSelector = ({ setUsername, fetchData, isPending }) => {
                 disabled={isPending} />
         </div>
     );
-};
-
-TimelineSelector.propTypes = {
-    setUsername: PropTypes.func,
-    fetchData: PropTypes.func,
-    isPending: PropTypes.bool
 };

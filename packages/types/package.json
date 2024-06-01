@@ -1,15 +1,13 @@
 {
-    "name": "@timeline-viewer/api-requests",
+    "name": "@timeline-viewer/types",
     "version": "1.0.0",
     "description": "",
-    "main": "api.ts",
+    "main": "index.ts",
     "scripts": {
     },
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "@timeline-viewer/types": "^1.0.0",
-        "axios": "^1.6.7"
     },
     "devDependencies": {
         "typescript": "^5.4.5"

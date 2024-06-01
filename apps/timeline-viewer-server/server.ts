@@ -9,13 +9,17 @@ app.use(cors());
 
 app.get("/api/videos/:user", async (req, res) => {
     if (!req.params.user) {
-        res.status(404).send("Not found.");
+        res.status(404).send({
+            error: "No user provided."
+        });
     }
     try {
         const videoData = await getVideosForUser(req.params.user);
         res.status(200).send(videoData);
     } catch (e) {
-        res.status(500).send("Internal issue.");
+        res.status(500).send({
+            error: "An error occurred while fetching the data."
+        });
     }
 });
   

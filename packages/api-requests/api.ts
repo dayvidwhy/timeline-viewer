@@ -1,9 +1,18 @@
 import axios from "axios";
+import { UserInformation, VideoInformation, VideoDetails } from "@timeline-viewer/types";
 import querystring from "node:querystring";
 import { parseTimeString } from "./parseTimeString.js";
 
-let token;
-let tokenExpiry;
+let token: string;
+let tokenExpiry: number;
+const TWITCH_BASE_URL = "https://api.twitch.tv/helix";
+const TWITCH_AUTH_URL = "https://id.twitch.tv/oauth2";
+const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
+const TWITCH_CLIENT_SECRET = process.env.TWITCH_CLIENT_SECRET;
+
+if (!TWITCH_CLIENT_ID || !TWITCH_CLIENT_SECRET) {
+    throw new Error("Twitch client ID and secret must be provided.");
+}
 
 // fetch a token from twitch if we don't have one
 // or if the one we have has expired
@@ -12,13 +21,13 @@ const checkLogin = async () => {
     if (!token || Date.now() >= tokenExpiry) {
         const response = await axios({
             "method": "post",
-            "url": "https://id.twitch.tv/oauth2/token",
+            "url": `${TWITCH_AUTH_URL}/token`,
             "headers": {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
             "data": querystring.stringify({
-                "client_id": process.env.TWITCH_CLIENT_ID,
-                "client_secret": process.env.TWITCH_CLIENT_SECRET,
+                "client_id": TWITCH_CLIENT_ID,
+                "client_secret": TWITCH_CLIENT_SECRET,
                 "grant_type": "client_credentials"
             })
         });
@@ -38,13 +47,14 @@ const checkLogin = async () => {
     return;
 };
 
-const getUserInformationForUsername = async (username) => {
+// fetch user information for a given username
+const getUserInformationForUsername = async (username: string): Promise<UserInformation> => {
     const response = await axios({
-        "url": "https://api.twitch.tv/helix/users",
+        "url": `${TWITCH_BASE_URL}/users`,
         "method": "get",
         "headers": {
             "Authorization": `Bearer ${token}`,
-            "Client-Id": process.env.TWITCH_CLIENT_ID,
+            "Client-Id": TWITCH_CLIENT_ID,
         },
         "params": {
             "login": username
@@ -52,18 +62,22 @@ const getUserInformationForUsername = async (username) => {
     });
 
     if (response.status === 200) {
-        return response.data;
+        if (!response.data.data || response.data.data.length === 0) {
+            throw new Error("No user found");
+        }
+        return response.data.data[0];
     }
     throw new Error(response.data);
 };
 
-const getVideosForUsername = async (userId) => {
+// fetch videos for a given user id
+const getVideosForUsername = async (userId: string): Promise<VideoInformation[]> => {
     const response = await axios({
-        "url": "https://api.twitch.tv/helix/videos",
+        "url": `${TWITCH_BASE_URL}/videos`,
         "method": "get",
         "headers": {
             "Authorization": `Bearer ${token}`,
-            "Client-Id": process.env.TWITCH_CLIENT_ID,
+            "Client-Id": TWITCH_CLIENT_ID,
         },
         "params": {
             "user_id": userId,
@@ -77,7 +91,8 @@ const getVideosForUsername = async (userId) => {
     throw new Error(response.data);
 };
 
-const getVideoDetails = (videos) => {
+// convert video information to video details
+const getVideoDetails = (videos: VideoInformation[]): VideoDetails[] => {
     return videos.map((video) => {
         const startTime = new Date(video.created_at);
         const endTime = new Date(startTime.getTime() + parseTimeString(video.duration));
@@ -91,25 +106,25 @@ const getVideoDetails = (videos) => {
 };
 
 // fetch videos for a given username
-export const getVideosForUser = async (username) => {
+export const getVideosForUser = async (username: string): Promise<VideoDetails[]> => {
     try {
         await checkLogin();
     } catch (e) {
         throw new Error("Logging in failed: " + e);
     }
 
-    let user;
+    let user: UserInformation;
     try {
         user = await getUserInformationForUsername(username);
     } catch (e) {
         throw new Error("Fetching user data failed: " + e);
     }
 
-    let videos;
+    let videos: VideoInformation[];
     try {
-        videos = await getVideosForUsername(user.data[0].id);
+        videos = await getVideosForUsername(user.id);
     } catch (e) {
-        throw new Error("Fetching videos failed: " +  + e);
+        throw new Error("Fetching videos failed: " + e);
     }
     return getVideoDetails(videos);
 };

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
+import { VideoDetails } from "@timeline-viewer/types";
 
-export const useVideoRequest = (username) => {
+export const useVideoRequest = (username: string) => {
     const [data, setData] = useState([]);
     const [isPending, setIsPending] = useState(false);
   
@@ -17,7 +18,7 @@ export const useVideoRequest = (username) => {
                 "url": `/api/videos/${username}`
             });
             if (response.status === 200) {
-                setData(response.data.map((item) => {
+                setData(response.data.map((item: VideoDetails) => {
                     item.start = new Date(item.start);
                     item.end = new Date(item.end);
                     return item;

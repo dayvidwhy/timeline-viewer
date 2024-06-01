@@ -1,29 +1,34 @@
 module.exports = {
-    root: true,
-    env: {
-        browser: true,
-        es2020: true,
-        jest: true, // Include Jest environment
-        node: true, // Add node environment
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true,
+        "jest/globals": true
     },
-    extends: [
+    "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:react/jsx-runtime",
-        "plugin:react-hooks/recommended",
+        "plugin:@typescript-eslint/recommended"
     ],
-    ignorePatterns: ["dist"],
-    parserOptions: { ecmaVersion: "latest", sourceType: "module" },
-    settings: { react: { version: "18.2" } },
-    plugins: ["react-refresh", "jest"],
-    rules: {
-        "react/jsx-no-target-blank": "off",
-        "react-refresh/only-export-components": [
-            "warn",
-            { allowConstantExport: true },
-        ],
-        indent: ["error", 4],
-        quotes: ["error", "double"],
-        semi: ["error", "always"],
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "ignorePatterns": ["**/dist/*"],
+    "rules": {
+        "indent": ["error", 4],
+        "@typescript-eslint/no-var-requires": 0,
+        "quotes": ["error", "double"]
+    },
+    "plugins": [
+        "jest",
+        "@typescript-eslint"
+    ],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
     }
 };

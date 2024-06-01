@@ -1,9 +1,24 @@
-import { Fragment } from "react";
-import PropTypes from "prop-types";
+import React, { Fragment } from "react";
 import { Tooltip } from "react-tooltip";
+import { VideoForBlock } from "@timeline-viewer/types";
 
-export const TimelineBlock = ({ videosForBlock }) => {
-    const blockItems = [];
+
+type TimelineBlockProps = {
+    videosForBlock: VideoForBlock[];
+};
+
+export const TimelineBlock = ({ videosForBlock }: TimelineBlockProps) => {
+    const blockItems: {
+        timeData: {
+            start: number;
+            end: number;
+        };
+        video?: {
+            id: string;
+            url: string;
+            title: string;
+        };
+    }[] = [];
     let currentEnd = 100;
 
     videosForBlock.forEach((video) => {
@@ -46,8 +61,4 @@ export const TimelineBlock = ({ videosForBlock }) => {
             ))}
         </div>
     );
-};
-
-TimelineBlock.propTypes = {
-    videosForBlock: PropTypes.array
 };

@@ -1,12 +1,15 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 import { findVideosPerTimelineBlock } from "../utils/timeCompare.js";
 
 import { TimelineBlock } from "./TimelineBlock.jsx";
 import { TimelineSelector } from "./TimelineSelector.jsx";
 import { useVideoRequest } from "../hooks/useVideoRequest.js";
 
-export const TimelineTrack = ({ timelineTimes }) => {
+type TimelineTrackProps = {
+    timelineTimes: Date[];
+};
+
+export const TimelineTrack = ({ timelineTimes }: TimelineTrackProps) => {
     const [username, setUsername] = useState("");
     const { data, fetchData, isPending } = useVideoRequest(username);
 
@@ -29,15 +32,11 @@ export const TimelineTrack = ({ timelineTimes }) => {
                     <td className="border border-slate-300 bg-slate-100 h-inherit p-0"
                         key={index}>
                         <TimelineBlock
-                            videosForBlock={timeslotData.videoStorage[timelineTime]}
+                            videosForBlock={timeslotData.videoStorage[timelineTime.toString()]}
                         />
                     </td>
                 );
             })}
         </tr>
     );
-};
-
-TimelineTrack.propTypes = {
-    timelineTimes: PropTypes.array
 };

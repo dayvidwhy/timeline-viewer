@@ -1,6 +1,13 @@
-import PropTypes from "prop-types";
+import React from "react";
 
-export const Button = ({ text, onClick, className }) => (
+type ButtonProps = {
+    text: string;
+    onClick: () => void;
+    className?: string;
+    disabled?: boolean;
+};
+
+export const Button = ({ text, onClick, className, disabled }: ButtonProps) => (
     <button
         className={`
             bg-slate-100 
@@ -10,13 +17,8 @@ export const Button = ({ text, onClick, className }) => (
             p-1
             ${className} 
         `}
+        disabled={disabled}
         onClick={onClick}>
         {text}
     </button>
 );
-
-Button.propTypes = {
-    text: PropTypes.string,
-    onClick: PropTypes.func,
-    className: PropTypes.string
-};

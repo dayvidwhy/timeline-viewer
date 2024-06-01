@@ -1,4 +1,4 @@
-import { parseTimeString } from "./parseTimeString.js";
+import { parseTimeString } from "./parseTimeString";
 
 test("parseTimeString returns milliseconds to add for valid time string with hours, minutes, and seconds", () => {
     const timeString = "2h42m31s";

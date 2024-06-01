@@ -1,4 +1,4 @@
-export const parseTimeString = (timeString) => {
+export const parseTimeString = (timeString: string) => {
     const regex = /(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/;
     const match = timeString.match(regex);
     if (!match || match[0] !== timeString) {

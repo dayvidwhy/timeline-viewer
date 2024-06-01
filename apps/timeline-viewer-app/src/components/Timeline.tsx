@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { TimelineTrack } from "./TimelineTrack.jsx";
 import { format, subHours, subDays, set } from "date-fns";
 
@@ -9,7 +9,7 @@ export const Timeline = () => {
 
     const [timePeriod, setTimePeriod] = useState("day");
 
-    const timelineTimes = useMemo(() => {
+    const timelineTimes: Date[] = useMemo(() => {
         if (timePeriod === "day") {
             return Array.from({ length: 25 }, (_, index) => (
                 set(subHours(new Date(), index - 1), {
@@ -37,9 +37,11 @@ export const Timeline = () => {
                 })
             ));
         }
+        return [];
     }, [timePeriod]);
 
     const formattedTimes = useMemo(() => {
+        if (!timelineTimes) return [];
         return timelineTimes.map((time) => {
             if (timePeriod === "day") {
                 return format(time, "haaa");
