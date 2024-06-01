@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { findVideosPerTimelineBlock } from "../utils/timeCompare.js";
+import { findVideosPerTimelineBlock } from "../utils/videosPerTimelineBlock";
 
 import { TimelineBlock } from "./TimelineBlock.jsx";
 import { TimelineSelector } from "./TimelineSelector.jsx";

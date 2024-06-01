@@ -1,22 +1,28 @@
-import { compareAsc, differenceInMilliseconds } from "date-fns";
-import { VideoDetails, VideoStorage } from "@timeline-viewer/types";
+import { compareAsc, differenceInMilliseconds, isEqual } from "date-fns";
 
-const calculatePercentageDistance = (endDate: Date, middleDate: Date, startDate: Date) => {    
-    // Calculate the difference in milliseconds between the start date and the middle date
+// Calculate the percentage distance between the start date and the middle date
+export const calculatePercentageDistance = (
+    endDate: Date,
+    middleDate: Date,
+    startDate: Date
+): number => {    
+    if (isEqual(startDate, middleDate)) {
+        return 0;
+    }
+
+    if (isEqual(endDate, middleDate)) {
+        return 100;
+    }
+
+    // Calculate the differences
     const startToMiddleDiff = differenceInMilliseconds(middleDate, startDate);
-    
-    // Calculate the difference in milliseconds between the start date and the end date
     const startToEndDiff = differenceInMilliseconds(endDate, startDate);
 
-    // Calculate the percentage distance between the start date and the middle date
-    const percentageDistance = (startToMiddleDiff / startToEndDiff) * 100;
-
-    return percentageDistance;
+    return (startToMiddleDiff / startToEndDiff) * 100;
 };
 
-// returns either, start to end completey fall within the times to check
-// or 
-const checkIfVideoInTimeblock = ({ 
+// Check if the video is in the time block
+export const checkIfVideoInTimeblock = ({ 
     startTime,
     endTime,
     startTimeToCheck,
@@ -88,61 +94,3 @@ const checkIfVideoInTimeblock = ({
     return null;
 };
 
-type TimeSlotData = {
-    videoStorage: VideoStorage;
-    timelineTrackEnd: Date;
-    timelineTrackStart: Date;
-};
-
-export const findVideosPerTimelineBlock = (
-    timelineTimes: Date[],
-    videos: VideoDetails[]
-): {
-    videoStorage: VideoStorage;
-    timelineTrackEnd: Date;
-    timelineTrackStart: Date;
-} => { 
-    const timeslotData: TimeSlotData = {
-        videoStorage: {},
-        timelineTrackEnd: timelineTimes[0],
-        timelineTrackStart: timelineTimes[timelineTimes.length - 1]
-    };
-
-    for (let i = 0; i < timelineTimes.length; i++) {
-        timeslotData.videoStorage[timelineTimes[i].toString()] = [];
-    }
-
-    videos.forEach((video) => {
-        // if the video starts after our track ends, or ends before it begins, skip it
-        if (
-            compareAsc(video.start, timeslotData.timelineTrackEnd) > 0 ||
-            compareAsc(timeslotData.timelineTrackStart, video.end) > 0
-        ) {
-            return;
-        }
-
-        // the video falls along the track somewhere
-        timelineTimes.forEach((_, index) => {
-            if (index === timelineTimes.length - 1) { 
-                return;
-            }
-            const startTime = timelineTimes[index + 1];
-
-            // for each time block does the video overlap with our current time block
-            const timeData = checkIfVideoInTimeblock({
-                startTime,
-                endTime: timelineTimes[index],
-                startTimeToCheck: video.start,
-                endTimeToCheck: video.end
-            });
-
-            if (timeData) {
-                timeslotData.videoStorage[timelineTimes[index].toString()].push({
-                    timeData,
-                    video
-                });
-            }
-        });
-    });
-    return timeslotData;
-};

@@ -4,6 +4,7 @@ import { VideoDetails } from "@timeline-viewer/types";
 
 export const useVideoRequest = (username: string) => {
     const [data, setData] = useState([]);
+    const [error, setError] = useState(null);
     const [isPending, setIsPending] = useState(false);
   
     const fetchData = async () => {
@@ -23,10 +24,10 @@ export const useVideoRequest = (username: string) => {
                     item.end = new Date(item.end);
                     return item;
                 }));
+                setError(null);
             } else {
-                // something went wrong, blank the data
-                // TODO: Add handling
                 setData([]);
+                setError(response.data);
             }
         } catch (e) {
             setData([]);
@@ -34,5 +35,5 @@ export const useVideoRequest = (username: string) => {
         setIsPending(false);
     };
   
-    return { data, isPending, fetchData };
+    return { data, isPending, fetchData, error };
 };
