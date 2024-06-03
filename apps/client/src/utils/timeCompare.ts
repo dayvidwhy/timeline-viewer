@@ -3,9 +3,9 @@ import { ISODateString } from "@timeline-viewer/types";
 
 // Calculate the percentage distance between the start date and the middle date
 export const calculatePercentageDistance = (
-    endDate: Date,
-    middleDate: Date,
-    startDate: Date
+    endDate: ISODateString,
+    middleDate: ISODateString,
+    startDate: ISODateString
 ): number => {    
     if (isEqual(startDate, middleDate)) {
         return 0;
@@ -37,16 +37,10 @@ export const checkIfVideoInTimeblock = ({
     start: number;
     end: number;
 } | null => {
-    // convert the strings to dates
-    const startTimeToCheckDate = new Date(startTimeToCheck);
-    const endTimeToCheckDate = new Date(endTimeToCheck);
-    const startTimeDate = new Date(startTime);
-    const endTimeDate = new Date(endTime);
-
     // if the start time is after the end time of the block
     // or if the end time is before our blocks start time
     if (
-        compareAsc(startTimeToCheckDate, endTime) > 0 ||
+        compareAsc(startTimeToCheck, endTime) > 0 ||
         compareAsc(startTime, endTimeToCheck) > 0
     ) {
         return null;
@@ -55,7 +49,7 @@ export const checkIfVideoInTimeblock = ({
     // check if the end time to check is after the end time, and start time to check is before start
     if (
         compareAsc(endTimeToCheck, endTime) === 1 &&
-        compareAsc(startTime, startTimeToCheckDate) === 1
+        compareAsc(startTime, startTimeToCheck) === 1
     ) {
         return {
             start: 0,
@@ -67,15 +61,15 @@ export const checkIfVideoInTimeblock = ({
     // and starts earlier than the time period
     if (
         compareAsc(endTime, endTimeToCheck) === 1 &&
-        compareAsc(startTime, startTimeToCheckDate) === 1
+        compareAsc(startTime, startTimeToCheck) === 1
     ) {
         // work out how far through the time period, the end time is
         return {
             start: 0,
             end: calculatePercentageDistance(
-                endTimeDate,
-                endTimeToCheckDate,
-                startTimeDate
+                endTime,
+                endTimeToCheck,
+                startTime
             )
         };
     }
@@ -83,13 +77,13 @@ export const checkIfVideoInTimeblock = ({
     // check if the end time is after, but the start time is during
     if (
         compareAsc(endTimeToCheck, endTime) === 1 &&
-        compareAsc(startTimeToCheckDate, startTime) === 1
+        compareAsc(startTimeToCheck, startTime) === 1
     ) {
         return {
             start: calculatePercentageDistance(
-                endTimeDate,
-                startTimeToCheckDate,
-                startTimeDate
+                endTime,
+                startTimeToCheck,
+                startTime
             ),
             end: 100
         };
@@ -102,14 +96,14 @@ export const checkIfVideoInTimeblock = ({
     ) {
         return {
             start: calculatePercentageDistance(
-                endTimeDate,
-                startTimeToCheckDate,
-                startTimeDate
+                endTime,
+                startTimeToCheck,
+                startTime
             ),
             end: calculatePercentageDistance(
-                endTimeDate,
-                endTimeToCheckDate,
-                startTimeDate
+                endTime,
+                endTimeToCheck,
+                startTime
             )
         };
     }

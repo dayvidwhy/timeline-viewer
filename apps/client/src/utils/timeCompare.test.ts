@@ -2,29 +2,29 @@ import { calculatePercentageDistance, checkIfVideoInTimeblock } from "./timeComp
 import { ISODateString } from "@timeline-viewer/types";
 
 test("calculatePercentageDistance returns correct percentage distance", () => {
-    const start = new Date("2021-01-01T00:00:00Z");
-    const middle = new Date("2021-01-01T12:00:00Z");
-    const end = new Date("2021-01-02T00:00:00Z");
+    const start = "2021-01-01T00:00:00Z" as ISODateString;
+    const middle = "2021-01-01T12:00:00Z" as ISODateString;
+    const end = "2021-01-02T00:00:00Z" as ISODateString;
 
     const percentageDistance = calculatePercentageDistance(end, middle, start);
     expect(percentageDistance).toBe(50);
 });
 
 test("calculatePercentageDistance returns 0 for start date", () => {
-    const startAndMiddleSameDate = new Date("2021-01-01T00:00:00Z");
+    const startAndMiddleSameDate = "2021-01-01T00:00:00Z" as ISODateString;
     const start = startAndMiddleSameDate;
     const middle = startAndMiddleSameDate;
 
-    const end = new Date("2021-01-02T00:00:00Z");
+    const end = "2021-01-02T00:00:00Z" as ISODateString;
 
     const percentageDistance = calculatePercentageDistance(end, middle, start);
     expect(percentageDistance).toBe(0);
 });
 
 test("calculatePercentageDistance returns 100 for end date", () => {
-    const start = new Date("2021-01-01T00:00:00Z");
+    const start = "2021-01-01T00:00:00Z" as ISODateString;
 
-    const middleAndEndSameDate = new Date("2021-01-02T00:00:00Z");
+    const middleAndEndSameDate = "2021-01-02T00:00:00Z" as ISODateString;
     const middle = middleAndEndSameDate;
     const end = middleAndEndSameDate;
 
