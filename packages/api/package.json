@@ -1,8 +1,8 @@
 {
-    "name": "@timeline-viewer/api-requests",
+    "name": "@timeline-viewer/api",
     "version": "1.0.0",
     "description": "",
-    "main": "api.ts",
+    "main": "index.ts",
     "scripts": {
     },
     "author": "",

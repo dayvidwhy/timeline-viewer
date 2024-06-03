@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { getVideosForUser } from "@timeline-viewer/api-requests";
+import { getVideosForUser } from "@timeline-viewer/api";
 
 const app = express();
 const port = process.env.PORT || 3000;

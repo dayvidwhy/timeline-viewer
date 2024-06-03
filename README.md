@@ -28,5 +28,5 @@ npm install axios -w ./apps/timeline-viewer-server
 
 Example of installing a package in this repo into another.
 ```bash
-npm install @timeline-viewer/api-requests -w ./apps/timeline-viewer-server
+npm install @timeline-viewer/api -w ./apps/timeline-viewer-server
 ```

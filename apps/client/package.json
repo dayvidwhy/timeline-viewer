@@ -1,5 +1,5 @@
 {
-  "name": "@timeline-viewer/timeline-viewer-app",
+  "name": "@timeline-viewer/client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@timeline-viewer/api-requests": "^1.0.0",
+    "@timeline-viewer/api": "^1.0.0",
     "@timeline-viewer/types": "^1.0.0",
     "axios": "^1.6.7",
     "date-fns": "^3.3.1",

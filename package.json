@@ -4,9 +4,9 @@
     "description": "🎬 Timeline of Twitch videos using React with Vite and npm workspaces.",
     "main": "index.js",
     "scripts": {
-        "start": "npm run start -w @timeline-viewer/timeline-viewer-server & npm run dev -w @timeline-viewer/timeline-viewer-app",
-        "server": "npm run start -w @timeline-viewer/timeline-viewer-server",
-        "dev": "npm run dev -w @timeline-viewer/timeline-viewer-app",
+        "dev": "npm run start -w @timeline-viewer/server & npm run dev -w @timeline-viewer/client",
+        "server": "npm run start -w @timeline-viewer/server",
+        "client": "npm run dev -w @timeline-viewer/client",
         "test": "jest",
         "lint": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0",
         "lint:fix": "eslint . --fix --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0"

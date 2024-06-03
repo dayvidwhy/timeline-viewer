@@ -1,5 +1,5 @@
 {
-    "name": "@timeline-viewer/timeline-viewer-server",
+    "name": "@timeline-viewer/server",
     "version": "1.0.0",
     "description": "",
     "main": "server.ts",
@@ -9,7 +9,7 @@
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "@timeline-viewer/api-requests": "^1.0.0",
+        "@timeline-viewer/api": "^1.0.0",
         "@timeline-viewer/types": "^1.0.0",
         "cors": "^2.8.5",
         "express": "^4.18.3",
