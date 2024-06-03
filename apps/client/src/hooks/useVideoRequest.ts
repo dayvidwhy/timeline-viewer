@@ -3,7 +3,7 @@ import axios from "axios";
 import { VideoDetails } from "@timeline-viewer/types";
 
 export const useVideoRequest = (username: string) => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<VideoDetails[]>([]);
     const [error, setError] = useState(null);
     const [isPending, setIsPending] = useState(false);
   
@@ -19,11 +19,7 @@ export const useVideoRequest = (username: string) => {
                 "url": `/api/videos/${username}`
             });
             if (response.status === 200) {
-                setData(response.data.map((item: VideoDetails) => {
-                    item.start = new Date(item.start);
-                    item.end = new Date(item.end);
-                    return item;
-                }));
+                setData(response.data);
                 setError(null);
             } else {
                 setData([]);

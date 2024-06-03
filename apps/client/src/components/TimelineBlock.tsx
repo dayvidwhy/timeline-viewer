@@ -44,7 +44,11 @@ export const TimelineBlock = ({ videosForBlock }: TimelineBlockProps) => {
                     key={index}>
                     <div 
                         id={item.video ? "video-tooltip-" + item.video.id + index : ""}
-                        onClick={() => {item.video && window.open(item.video.url,"_blank");}} 
+                        onClick={() => {
+                            if (item.video) {
+                                window.open(item.video.url, "_blank");
+                            }
+                        }} 
                         className={`h-full ${item.video ? "cursor-pointer bg-slate-700" : null}`}
                         style={{width: item.timeData.end - item.timeData.start + "%"}}
                     />
@@ -54,7 +58,11 @@ export const TimelineBlock = ({ videosForBlock }: TimelineBlockProps) => {
                             place="top"
                             style={{width: "content-fit"}}
                         >
-                            {item.video.title.length > 40 ? item.video.title.substring(0, 40) + "..." : item.video.title}
+                            {
+                                item.video.title.length > 40 ?
+                                    item.video.title.substring(0, 40) + "..." :
+                                    item.video.title
+                            }
                         </Tooltip>
                     )}
                 </Fragment>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserInformation, VideoInformation, VideoDetails } from "@timeline-viewer/types";
+import { UserInformation, VideoInformation, VideoDetails, ISODateString } from "@timeline-viewer/types";
 import querystring from "node:querystring";
 import { parseTimeString } from "./parseTimeString.js";
 
@@ -94,12 +94,14 @@ const getVideosForUsername = async (userId: string): Promise<VideoInformation[]>
 // convert video information to video details
 const getVideoDetails = (videos: VideoInformation[]): VideoDetails[] => {
     return videos.map((video) => {
+        // TODO: Handle parsing throwing
         const startTime = new Date(video.created_at);
         const endTime = new Date(startTime.getTime() + parseTimeString(video.duration));
 
         return {
-            start: startTime,
-            end: endTime,
+            // explicity send the dates as ISO strings over wire
+            videoStartTime: startTime.toISOString() as ISODateString,
+            videoEndTime: endTime.toISOString() as ISODateString,
             ...video
         };
     });

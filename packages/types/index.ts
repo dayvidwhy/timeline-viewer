@@ -31,10 +31,12 @@ export type VideoInformation = {
     muted_segments: string | null,
 };
 
+export type ISODateString = string & { readonly __brand: "ISODateString" };
+
 // Video information extdnded with start and end dates
 export type VideoDetails = {
-    start: Date;
-    end: Date;
+    videoStartTime: ISODateString;
+    videoEndTime: ISODateString;
 } & VideoInformation;
 
 // Video storage with start and end percentages for each block

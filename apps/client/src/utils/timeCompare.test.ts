@@ -1,4 +1,5 @@
 import { calculatePercentageDistance, checkIfVideoInTimeblock } from "./timeCompare";
+import { ISODateString } from "@timeline-viewer/types";
 
 test("calculatePercentageDistance returns correct percentage distance", () => {
     const start = new Date("2021-01-01T00:00:00Z");
@@ -35,8 +36,8 @@ test("checkIfVideoInTimeblock returns null if start time is after end time", () 
     const timeData = checkIfVideoInTimeblock({
         startTime: new Date("2021-01-01T00:00:00Z"),
         endTime: new Date("2021-01-02T00:00:00Z"),
-        startTimeToCheck: new Date("2021-01-03T00:00:00Z"),
-        endTimeToCheck: new Date("2021-01-04T00:00:00Z")
+        startTimeToCheck: "2021-01-03T00:00:00Z" as ISODateString,
+        endTimeToCheck: "2021-01-04T00:00:00Z" as ISODateString
     });
 
     expect(timeData).toBeNull();
@@ -46,8 +47,8 @@ test("checkIfVideoInTimeblock returns null if end time is before start time", ()
     const timeData = checkIfVideoInTimeblock({
         startTime: new Date("2021-01-03T00:00:00Z"),
         endTime: new Date("2021-01-04T00:00:00Z"),
-        startTimeToCheck: new Date("2021-01-01T00:00:00Z"),
-        endTimeToCheck: new Date("2021-01-02T00:00:00Z")
+        startTimeToCheck: "2021-01-01T00:00:00Z" as ISODateString,
+        endTimeToCheck: "2021-01-02T00:00:00Z" as ISODateString
     });
 
     expect(timeData).toBeNull();
@@ -58,8 +59,8 @@ test("checkIfVideoInTimeblock returns not null if video is within time block", (
         startTime: new Date("2021-01-01T00:00:00Z"),
         endTime: new Date("2021-01-02T00:00:00Z"),
 
-        startTimeToCheck: new Date("2021-01-01T05:00:00Z"),
-        endTimeToCheck: new Date("2021-01-01T06:00:00Z")
+        startTimeToCheck: "2021-01-01T05:00:00Z" as ISODateString,
+        endTimeToCheck: "2021-01-01T06:00:00Z" as ISODateString 
     });
 
     expect(timeData).toBeTruthy();

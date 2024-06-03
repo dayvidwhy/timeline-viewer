@@ -1,4 +1,5 @@
 import { compareAsc, differenceInMilliseconds, isEqual } from "date-fns";
+import { ISODateString } from "@timeline-viewer/types";
 
 // Calculate the percentage distance between the start date and the middle date
 export const calculatePercentageDistance = (
@@ -30,8 +31,8 @@ export const checkIfVideoInTimeblock = ({
 } : {
     startTime: Date;
     endTime: Date;
-    startTimeToCheck: Date;
-    endTimeToCheck: Date;
+    startTimeToCheck: ISODateString;
+    endTimeToCheck: ISODateString;
 }): {
     start: number;
     end: number;
@@ -65,7 +66,7 @@ export const checkIfVideoInTimeblock = ({
         // work out how far through the time period, the end time is
         return {
             start: 0,
-            end: calculatePercentageDistance(endTime, endTimeToCheck, startTime)
+            end: calculatePercentageDistance(endTime, new Date(endTimeToCheck), startTime)
         };
     }
 
@@ -75,7 +76,7 @@ export const checkIfVideoInTimeblock = ({
         compareAsc(startTimeToCheck, startTime) === 1
     ) {
         return {
-            start: calculatePercentageDistance(endTime, startTimeToCheck, startTime),
+            start: calculatePercentageDistance(endTime, new Date(startTimeToCheck), startTime),
             end: 100
         };
     }
@@ -86,8 +87,8 @@ export const checkIfVideoInTimeblock = ({
         compareAsc(startTimeToCheck, startTime) === 1
     ) {
         return {
-            start: calculatePercentageDistance(endTime, startTimeToCheck, startTime),
-            end: calculatePercentageDistance(endTime, endTimeToCheck, startTime)
+            start: calculatePercentageDistance(endTime, new Date(startTimeToCheck), startTime),
+            end: calculatePercentageDistance(endTime, new Date(endTimeToCheck), startTime)
         };
     }
 

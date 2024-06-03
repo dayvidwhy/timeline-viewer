@@ -7,12 +7,13 @@ import { Button } from "./Button.jsx";
 export const Timeline = () => {
     const [trackCount, setTrackCount] = useState(2);
 
-    const [timePeriod, setTimePeriod] = useState("day");
+    const [timePeriod, setTimePeriod] = useState<"day" | "week" | "month">("day");
 
     const timelineTimes: Date[] = useMemo(() => {
+        const now = new Date();
         if (timePeriod === "day") {
             return Array.from({ length: 25 }, (_, index) => (
-                set(subHours(new Date(), index - 1), {
+                set(subHours(now, index - 1), {
                     minutes: 0,
                     seconds: 0,
                     milliseconds: 0
@@ -20,7 +21,7 @@ export const Timeline = () => {
             ));
         } else if (timePeriod === "week") {
             return Array.from({ length: 8 }, (_, index) => (
-                set(subDays(new Date(), index - 1), {
+                set(subDays(now, index - 1), {
                     hours: 0,
                     minutes: 0,
                     seconds: 0,
@@ -29,7 +30,7 @@ export const Timeline = () => {
             ));
         } else if (timePeriod === "month") {
             return Array.from({ length: 29 }, (_, index) => (
-                set(subDays(new Date(), index - 1), {
+                set(subDays(now, index - 1), {
                     hours: 0,
                     minutes: 0,
                     seconds: 0,

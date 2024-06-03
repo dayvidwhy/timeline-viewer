@@ -29,8 +29,8 @@ export const findVideosPerTimelineBlock = (
     videos.forEach((video) => {
         // if the video starts after our track ends, or ends before it begins, skip it
         if (
-            compareAsc(video.start, timeslotData.timelineTrackEnd) > 0 ||
-            compareAsc(timeslotData.timelineTrackStart, video.end) > 0
+            compareAsc(video.videoStartTime, timeslotData.timelineTrackEnd) > 0 ||
+            compareAsc(timeslotData.timelineTrackStart, video.videoEndTime) > 0
         ) {
             return;
         }
@@ -45,8 +45,8 @@ export const findVideosPerTimelineBlock = (
             const timeData = checkIfVideoInTimeblock({
                 startTime: timelineTimes[index + 1],
                 endTime: timelineTimes[index],
-                startTimeToCheck: video.start,
-                endTimeToCheck: video.end
+                startTimeToCheck: video.videoStartTime,
+                endTimeToCheck: video.videoEndTime
             });
 
             if (timeData) {
