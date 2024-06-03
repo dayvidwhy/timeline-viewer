@@ -12,7 +12,6 @@ type TimelineTrackProps = {
 
 export const TimelineTrack = ({ timelineTimes }: TimelineTrackProps) => {
     const { data, fetchData, isPending } = useVideoRequest();
-    console.log("Rendering TimelineTrack with data");
     const timeslotData = findVideosPerTimelineBlock(timelineTimes, data);
 
     return (

@@ -11,12 +11,7 @@ type TimeSlotData = {
 export const findVideosPerTimelineBlock = (
     timelineTimes: ISODateString[],
     videos: VideoDetails[]
-): {
-    videoStorage: VideoStorage;
-    timelineTrackEnd: ISODateString;
-    timelineTrackStart: ISODateString;
-} => {
-    console.log("Calling findVideosPerTimelineBlock with", videos);
+): TimeSlotData => {
     const timeslotData: TimeSlotData = {
         videoStorage: {},
         timelineTrackEnd: timelineTimes[0],
@@ -58,6 +53,6 @@ export const findVideosPerTimelineBlock = (
             }
         });
     });
-    console.log(timeslotData);
+
     return timeslotData;
 };

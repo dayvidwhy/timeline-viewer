@@ -14,7 +14,6 @@ export const useVideoRequest = () => {
         }
         setIsPending(true);
         try {
-            console.log("Fetching videos");
             const response = await axios({
                 "method": "get",
                 "url": `/api/videos/${username}`
