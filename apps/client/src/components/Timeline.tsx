@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { TimelineTrack } from "./TimelineTrack.jsx";
 import { format, subHours, subDays, set } from "date-fns";
+import { ISODateString } from "@timeline-viewer/types";
 
 import { Button } from "./Button.jsx";
 
@@ -9,34 +10,34 @@ export const Timeline = () => {
 
     const [timePeriod, setTimePeriod] = useState<"day" | "week" | "month">("day");
 
-    const timelineTimes: Date[] = useMemo(() => {
+    const timelineTimes: ISODateString[] = useMemo(() => {
         const now = new Date();
         if (timePeriod === "day") {
-            return Array.from({ length: 25 }, (_, index) => (
-                set(subHours(now, index - 1), {
+            return Array.from({ length: 25 }, (_, index) => {
+                return set(subHours(now, index - 1), {
                     minutes: 0,
                     seconds: 0,
                     milliseconds: 0
-                })
-            ));
+                }).toISOString() as ISODateString;
+            });
         } else if (timePeriod === "week") {
-            return Array.from({ length: 8 }, (_, index) => (
-                set(subDays(now, index - 1), {
+            return Array.from({ length: 8 }, (_, index) => {
+                return set(subDays(now, index - 1), {
                     hours: 0,
                     minutes: 0,
                     seconds: 0,
                     milliseconds: 0
-                })
-            ));
+                }).toISOString() as ISODateString;
+            });
         } else if (timePeriod === "month") {
-            return Array.from({ length: 29 }, (_, index) => (
-                set(subDays(now, index - 1), {
+            return Array.from({ length: 29 }, (_, index) => {
+                return set(subDays(now, index - 1), {
                     hours: 0,
                     minutes: 0,
                     seconds: 0,
                     milliseconds: 0
-                })
-            ));
+                }).toISOString() as ISODateString;
+            });
         }
         return [];
     }, [timePeriod]);

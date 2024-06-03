@@ -34,8 +34,8 @@ test("calculatePercentageDistance returns 100 for end date", () => {
 
 test("checkIfVideoInTimeblock returns null if start time is after end time", () => {
     const timeData = checkIfVideoInTimeblock({
-        startTime: new Date("2021-01-01T00:00:00Z"),
-        endTime: new Date("2021-01-02T00:00:00Z"),
+        startTime: "2021-01-01T00:00:00Z" as ISODateString,
+        endTime: "2021-01-02T00:00:00Z" as ISODateString,
         startTimeToCheck: "2021-01-03T00:00:00Z" as ISODateString,
         endTimeToCheck: "2021-01-04T00:00:00Z" as ISODateString
     });
@@ -45,8 +45,8 @@ test("checkIfVideoInTimeblock returns null if start time is after end time", () 
 
 test("checkIfVideoInTimeblock returns null if end time is before start time", () => {
     const timeData = checkIfVideoInTimeblock({
-        startTime: new Date("2021-01-03T00:00:00Z"),
-        endTime: new Date("2021-01-04T00:00:00Z"),
+        startTime: "2021-01-03T00:00:00Z" as ISODateString,
+        endTime: "2021-01-04T00:00:00Z" as ISODateString,
         startTimeToCheck: "2021-01-01T00:00:00Z" as ISODateString,
         endTimeToCheck: "2021-01-02T00:00:00Z" as ISODateString
     });
@@ -56,9 +56,8 @@ test("checkIfVideoInTimeblock returns null if end time is before start time", ()
 
 test("checkIfVideoInTimeblock returns not null if video is within time block", () => {
     const timeData = checkIfVideoInTimeblock({
-        startTime: new Date("2021-01-01T00:00:00Z"),
-        endTime: new Date("2021-01-02T00:00:00Z"),
-
+        startTime: "2021-01-01T00:00:00Z" as ISODateString,
+        endTime: "2021-01-02T00:00:00Z" as ISODateString,
         startTimeToCheck: "2021-01-01T05:00:00Z" as ISODateString,
         endTimeToCheck: "2021-01-01T06:00:00Z" as ISODateString 
     });

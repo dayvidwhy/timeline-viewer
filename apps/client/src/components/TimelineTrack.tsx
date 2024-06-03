@@ -4,9 +4,10 @@ import { findVideosPerTimelineBlock } from "../utils/videosPerTimelineBlock";
 import { TimelineBlock } from "./TimelineBlock.jsx";
 import { TimelineSelector } from "./TimelineSelector.jsx";
 import { useVideoRequest } from "../hooks/useVideoRequest.js";
+import { ISODateString } from "@timeline-viewer/types";
 
 type TimelineTrackProps = {
-    timelineTimes: Date[];
+    timelineTimes: ISODateString[];
 };
 
 export const TimelineTrack = ({ timelineTimes }: TimelineTrackProps) => {

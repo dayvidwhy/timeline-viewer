@@ -1,20 +1,20 @@
-import { VideoDetails, VideoStorage } from "@timeline-viewer/types";
+import { VideoDetails, VideoStorage, ISODateString } from "@timeline-viewer/types";
 import { checkIfVideoInTimeblock } from "./timeCompare";
 import { compareAsc } from "date-fns";
 
 type TimeSlotData = {
     videoStorage: VideoStorage;
-    timelineTrackEnd: Date;
-    timelineTrackStart: Date;
+    timelineTrackEnd: ISODateString;
+    timelineTrackStart: ISODateString;
 };
 
 export const findVideosPerTimelineBlock = (
-    timelineTimes: Date[],
+    timelineTimes: ISODateString[],
     videos: VideoDetails[]
 ): {
     videoStorage: VideoStorage;
-    timelineTrackEnd: Date;
-    timelineTrackStart: Date;
+    timelineTrackEnd: ISODateString;
+    timelineTrackStart: ISODateString;
 } => {
     const timeslotData: TimeSlotData = {
         videoStorage: {},
@@ -57,5 +57,6 @@ export const findVideosPerTimelineBlock = (
             }
         });
     });
+    console.log(timeslotData);
     return timeslotData;
 };
