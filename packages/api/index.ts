@@ -1,7 +1,7 @@
 import axios from "axios";
 import { UserInformation, VideoInformation, VideoDetails, ISODateString } from "@timeline-viewer/types";
 import querystring from "node:querystring";
-import { parseTimeString } from "./parseTimeString.js";
+import { parseTimeString } from "./parseTimeString";
 
 let token: string;
 let tokenExpiry: number;
