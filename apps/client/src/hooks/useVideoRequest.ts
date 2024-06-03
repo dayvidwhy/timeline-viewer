@@ -2,18 +2,19 @@ import { useState } from "react";
 import axios from "axios";
 import { VideoDetails } from "@timeline-viewer/types";
 
-export const useVideoRequest = (username: string) => {
+export const useVideoRequest = () => {
     const [data, setData] = useState<VideoDetails[]>([]);
     const [error, setError] = useState(null);
     const [isPending, setIsPending] = useState(false);
   
-    const fetchData = async () => {
+    const fetchData = async (username: string) => {
         if (username === "") {
             setData([]);
             return;
         }
         setIsPending(true);
         try {
+            console.log("Fetching videos");
             const response = await axios({
                 "method": "get",
                 "url": `/api/videos/${username}`

@@ -1,22 +1,22 @@
-import React from "react";
+import React, {useRef } from "react";
 
 import { Button } from "./Button.jsx";
 
 type TimelineSelectorProps = {
-    setUsername: (username: string) => void;
-    fetchData: () => void;
+    fetchData: (username: string) => void;
     isPending: boolean;
 };
 
 export const TimelineSelector = ({
-    setUsername,
     fetchData,
     isPending
 }: TimelineSelectorProps) => {
+    const inputRef = useRef<HTMLInputElement>(null);
     return (
         <div className="block text-gray-900 border-solid border-slate-700 h-full">
             <label className="h-1/2 block">
                 <input
+                    ref={inputRef}
                     className="
                         h-full
                         text-center	
@@ -31,13 +31,16 @@ export const TimelineSelector = ({
                         w-full 
                         text-xs"
                     type="text"
-                    onChange={(event) => setUsername(event.target.value)} 
                 />
             </label>
             <Button
                 text={ isPending ? "Loading" : "Load" }
                 className="w-full p-1 h-1/2"
-                onClick={fetchData}
+                onClick={() => {
+                    const username = inputRef.current?.value;
+                    if (!username) return;
+                    fetchData(username);
+                }}
                 disabled={isPending} />
         </div>
     );

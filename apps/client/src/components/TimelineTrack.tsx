@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { findVideosPerTimelineBlock } from "../utils/videosPerTimelineBlock";
 
 import { TimelineBlock } from "./TimelineBlock.jsx";
@@ -11,16 +11,14 @@ type TimelineTrackProps = {
 };
 
 export const TimelineTrack = ({ timelineTimes }: TimelineTrackProps) => {
-    const [username, setUsername] = useState("");
-    const { data, fetchData, isPending } = useVideoRequest(username);
-
+    const { data, fetchData, isPending } = useVideoRequest();
+    console.log("Rendering TimelineTrack with data");
     const timeslotData = findVideosPerTimelineBlock(timelineTimes, data);
 
     return (
         <tr className="h-16">
             <th className="border border-slate-300 h-inherit border-r-4">
                 <TimelineSelector
-                    setUsername={setUsername}
                     fetchData={fetchData}
                     isPending={isPending} />
             </th>

@@ -16,6 +16,7 @@ export const findVideosPerTimelineBlock = (
     timelineTrackEnd: ISODateString;
     timelineTrackStart: ISODateString;
 } => {
+    console.log("Calling findVideosPerTimelineBlock with", videos);
     const timeslotData: TimeSlotData = {
         videoStorage: {},
         timelineTrackEnd: timelineTimes[0],
