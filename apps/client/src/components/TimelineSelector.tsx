@@ -1,5 +1,4 @@
 import React, {useRef } from "react";
-
 import { Button } from "./Button.jsx";
 
 type TimelineSelectorProps = {
@@ -18,18 +17,13 @@ export const TimelineSelector = ({
                 <input
                     ref={inputRef}
                     className="
-                        h-full
-                        text-center	
-                        p-1
-                        m-0
-                        border 
-                        border-gray-300 
-                        text-gray-900 
-                        focus:ring-slate-500 
+                        h-full text-center	
+                        p-1 m-0
+                        border border-gray-300 
+                        text-gray-900 focus:ring-slate-500 
                         focus:border-slate-500 
-                        block 
-                        w-full 
-                        text-xs"
+                        block w-full text-xs
+                    "
                     type="text"
                 />
             </label>
