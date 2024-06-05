@@ -1,32 +1,14 @@
 import React, { Fragment } from "react";
 import { Tooltip } from "react-tooltip";
 import { VideoForBlock } from "@timeline-viewer/types";
+import { padVideoBlocks } from "../utils/padVideoBlocks";
 
 type TimelineBlockProps = {
     videosForBlock: VideoForBlock[];
 };
 
 export const TimelineBlock = ({ videosForBlock }: TimelineBlockProps) => {    
-    const blockItems: VideoForBlock[] = [];
-    let currentEnd = 100;
-
-    // For our block, add blank sections, padding space
-    // where there is no video for that time.
-    videosForBlock.forEach((video) => {
-        if (video.timeData.end !== currentEnd) {
-            // add an empty block
-            blockItems.push({
-                timeData: {
-                    end: currentEnd,
-                    start: video.timeData.end
-                }
-            });
-        }
-        
-        // add a video block
-        blockItems.push(video);
-        currentEnd = video.timeData.start;
-    });
+    const blockItems: VideoForBlock[] = padVideoBlocks(videosForBlock);
 
     return (
         <div className="h-full flex">
