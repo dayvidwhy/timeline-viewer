@@ -25,7 +25,9 @@ export const findVideosPerTimelineBlock = (
     videos.forEach((video) => {
         // if the video starts after our track ends, or ends before it begins, skip it
         if (
+            // video start time is after the track ends
             compareAsc(video.videoStartTime, timeslotData.timelineTrackEnd) > 0 ||
+            // timeline starts after the video ends
             compareAsc(timeslotData.timelineTrackStart, video.videoEndTime) > 0
         ) {
             return;

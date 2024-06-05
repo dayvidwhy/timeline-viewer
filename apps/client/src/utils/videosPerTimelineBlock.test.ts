@@ -101,3 +101,103 @@ test("videosPerTimelineBlock returns video in time block", () => {
         timelineTrackStart: timelineTimes[timelineTimes.length - 1]
     });
 });
+
+test("videosPerTimelineBlock returns single video split across time blocks", () => {
+    const timelineTimes = [
+        "2021-01-03T00:00:00Z" as ISODateString,
+        "2021-01-02T00:00:00Z" as ISODateString,
+        "2021-01-01T00:00:00Z" as ISODateString
+    ];
+
+    const videos: VideoDetails[] = [
+        {
+            videoStartTime: "2021-01-01T12:00:00Z" as ISODateString,
+            videoEndTime: "2021-01-02T12:00:00Z" as ISODateString,
+            ...exampleVideo
+        }
+    ];
+
+    const timeslotData = findVideosPerTimelineBlock(timelineTimes, videos);
+
+    expect(timeslotData).toEqual({
+        videoStorage: {
+            "2021-01-03T00:00:00Z": [
+                {
+                    timeData: {
+                        start: 0,
+                        end: 50
+                    },
+                    video: videos[0]
+                }
+            ],
+            "2021-01-02T00:00:00Z": [
+                {
+                    timeData: {
+                        start: 50,
+                        end: 100
+                    },
+                    video: videos[0]
+                }
+            ],
+            "2021-01-01T00:00:00Z": []
+        },
+        timelineTrackEnd: timelineTimes[0],
+        timelineTrackStart: timelineTimes[timelineTimes.length - 1]
+    })
+});
+
+test("videosPerTimelineBlock returns multiple videos within a time block, and split", () => {
+    const timelineTimes = [
+        "2021-01-03T00:00:00Z" as ISODateString,
+        "2021-01-02T00:00:00Z" as ISODateString,
+        "2021-01-01T00:00:00Z" as ISODateString
+    ];
+
+    const videos: VideoDetails[] = [
+        {
+            videoStartTime: "2021-01-01T00:00:00Z" as ISODateString,
+            videoEndTime: "2021-01-01T06:00:00Z" as ISODateString,
+            ...exampleVideo
+        },
+        {
+            videoStartTime: "2021-01-01T12:00:00Z" as ISODateString,
+            videoEndTime: "2021-01-02T12:00:00Z" as ISODateString,
+            ...exampleVideo
+        }
+    ];
+
+    const timeslotData = findVideosPerTimelineBlock(timelineTimes, videos);
+
+    expect(timeslotData).toEqual({
+        videoStorage: {
+            "2021-01-03T00:00:00Z": [
+                {
+                    timeData: {
+                        start: 0,
+                        end: 50
+                    },
+                    video: videos[1]
+                }
+            ],
+            "2021-01-02T00:00:00Z": [
+                {
+                    timeData: {
+                        start: 0,
+                        end: 25
+                    },
+                    video: videos[0]
+                },
+                {
+                    timeData: {
+                        start: 50,
+                        end: 100
+                    },
+                    video: videos[1]
+                }
+            ],
+            "2021-01-01T00:00:00Z": []
+        },
+        timelineTrackEnd: timelineTimes[0],
+        timelineTrackStart: timelineTimes[timelineTimes.length - 1]
+    });
+});
