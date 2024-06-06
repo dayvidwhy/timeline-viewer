@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Tooltip } from "react-tooltip";
-import { VideoForBlock } from "@timeline-viewer/types";
+import { VideoForBlock, PaddedBlockSegments } from "@timeline-viewer/types";
 import { padVideoBlocks } from "../utils/padVideoBlocks";
 
 type TimelineBlockProps = {
@@ -8,7 +8,7 @@ type TimelineBlockProps = {
 };
 
 export const TimelineBlock = ({ videosForBlock }: TimelineBlockProps) => {    
-    const blockItems: VideoForBlock[] = padVideoBlocks(videosForBlock);
+    const blockItems: PaddedBlockSegments[] = padVideoBlocks(videosForBlock);
 
     return (
         <div className="h-full flex">

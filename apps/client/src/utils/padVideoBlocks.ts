@@ -1,7 +1,7 @@
-import { VideoForBlock } from "@timeline-viewer/types";
+import { VideoForBlock, PaddedBlockSegments } from "@timeline-viewer/types";
 
-export const padVideoBlocks = (videosForBlock: VideoForBlock[]): VideoForBlock[] => {
-    const blockItems: VideoForBlock[] = [];
+export const padVideoBlocks = (videosForBlock: VideoForBlock[]): PaddedBlockSegments[] => {
+    const blockItems: PaddedBlockSegments[] = [];
     let currentEnd = 100;
 
     // For our block, add blank sections, padding space

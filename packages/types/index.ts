@@ -55,6 +55,18 @@ export type VideoForBlock = {
         start: number;
         end: number;
     };
+    video: {
+        id: string;
+        url: string;
+        title: string;
+    };
+};
+
+export type PaddedBlockSegments = {
+    timeData: {
+        start: number;
+        end: number;
+    };
     video?: {
         id: string;
         url: string;
